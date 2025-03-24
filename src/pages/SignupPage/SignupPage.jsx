@@ -79,6 +79,7 @@ export default function SignupPage() {
           />
         </div>
         <button>Signup</button>
+        {success && <p>You're signed up! Redirecting to login page...</p>}
       </form>
     </main>
   );
