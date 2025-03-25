@@ -1,3 +1,27 @@
-.test_class {
-  color: red;
+@use "./styles/partials/resets";
+
+h1,
+h2 {
+  text-align: center;
+  color: rgb(0, 121, 255);
+}
+
+main {
+  max-width: 1000px;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 5rem;
+}
+
+.form {
+  &__group {
+    margin: 1rem;
+  }
+
+  label {
+    display: block;
+  }
 }
