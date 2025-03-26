@@ -12,7 +12,7 @@ export default function Fixtures({ fixture }) {
           )}.svg`}
           alt={`${fixture.home_team_name} badge`}
         />{" "}
-        {fixture.home_team_name} vs {fixture.away_team_name}{" "}
+        {fixture.home_team_abbr} vs {fixture.away_team_abbr}{" "}
         <img
           className="badge"
           src={`/src/assets/images/${fixture.away_team_name.replace(

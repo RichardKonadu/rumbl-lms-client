@@ -4,6 +4,7 @@ import "../LoginPage/LoginPage.scss";
 import { useState } from "react";
 
 export default function LoginPage() {
+  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState(false);
@@ -25,13 +26,14 @@ export default function LoginPage() {
       return;
     }
 
-    // if (!emailRegex.test(formData.email)) {
-    //     setErrorMessage("The email address is not valid. Expected format: x@x.xx");
-    //     return;
-    //   }
+    if (!emailRegex.test(formData.email)) {
+      setErrorMessage(
+        "The email address is not valid. Expected format: x@x.xx"
+      );
+      return;
+    }
 
     try {
-      // To login, send a POST request to the `/users/login` endpoint
       const { data } = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/users/login`,
         {
@@ -40,7 +42,6 @@ export default function LoginPage() {
         }
       );
 
-      // To ensure the frontend stays logged in, store the JWT in localStorage
       localStorage.setItem("authToken", data.authToken);
 
       setSuccess(true);
@@ -48,7 +49,7 @@ export default function LoginPage() {
         navigate("/profile");
       }, 2000);
     } catch (error) {
-      setErrorMessage(error.response.data.message);
+      setErrorMessage("No user with these credentials exists");
     }
   };
 
