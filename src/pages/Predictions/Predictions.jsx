@@ -45,9 +45,35 @@ export default function Predictions() {
     });
   };
 
+  const handleSubmit = () => {
+    sendPrediction();
+  };
+
+  const sendPrediction = async () => {
+    const authToken = localStorage.getItem("authToken");
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/predictions`,
+        {
+          team_id: predictedTeam.id,
+          league_id: 1,
+          game_week: 1,
+        },
+        {
+          headers: {
+            authorisation: `Bearer ${authToken}`,
+          },
+        }
+      );
+    } catch (error) {
+      setError("You must be logged in to view this page");
+    }
+  };
+
   useEffect(() => {
     fetchFixtures();
     fetchTeams();
+    sendPrediction();
   }, []);
 
   if (!fixtures) {
@@ -73,6 +99,7 @@ export default function Predictions() {
           );
         })}
       </ul>
+      <button onClick={handleSubmit}></button>
     </div>
   );
 }
