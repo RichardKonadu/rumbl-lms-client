@@ -1,6 +1,15 @@
+.header {
+  display: flex;
+
+  &__title {
+    margin: 0.5rem 1rem;
+  }
+}
+
 .nav {
   &__list {
     display: flex;
+    flex-direction: column;
     gap: 2rem;
     list-style-type: none;
     justify-content: center;
@@ -9,7 +18,7 @@
   }
 
   &__link {
-    color: black;
+    color: rgb(0, 121, 255);
     text-decoration: none;
   }
 }
@@ -17,4 +26,53 @@
 .active {
   font-weight: bold;
   text-decoration: underline;
+}
+
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  right: 1rem;
+  top: 1rem;
+}
+
+.bm-burger-bars {
+  background: rgb(54, 69, 79);
+}
+
+.bm-burger-bars-hover {
+  background: rgb(0, 121, 255);
+}
+
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+.bm-cross {
+  background: #bdc3c7;
+}
+
+.bm-menu-wrap {
+  position: fixed;
+  height: 100vh;
+}
+
+.bm-menu {
+  background: rgb(54, 69, 79);
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+.bm-item-list {
+  color: rgb(0, 121, 255);
+  padding: 0.8em;
+}
+
+.bm-item {
+  display: inline-block;
 }

@@ -1,0 +1,58 @@
+.gameweek {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 1rem;
+
+  &__icons {
+    width: 2rem;
+  }
+}
+
+.fixture__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 1rem;
+}
+
+.fixtures {
+  &__title {
+    background: linear-gradient(to right, red, orange, blue);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.predictions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 1rem;
+  gap: 0.5rem;
+  background-color: RGB(220, 215, 200);
+  margin: 1rem;
+  border-radius: 20px;
+}

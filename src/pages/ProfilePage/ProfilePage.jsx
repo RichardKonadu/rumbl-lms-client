@@ -7,6 +7,7 @@ export default function ProfilePage() {
   const [error, setError] = useState("");
   const [userData, setUserData] = useState({});
   const navigate = useNavigate();
+  const [accountDeleted, setAccountDeleted] = useState(false);
 
   const getUserData = async () => {
     const authToken = localStorage.getItem("authToken");
@@ -30,6 +31,19 @@ export default function ProfilePage() {
     }
   };
 
+  const deleteUser = async () => {
+    const authToken = localStorage.getItem("authToken");
+    try {
+      await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/users/:id`, {
+        headers: {
+          authorisation: `Bearer ${authToken}`,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getUserData();
   }, []);
@@ -37,6 +51,15 @@ export default function ProfilePage() {
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     navigate("/");
+  };
+
+  const handleDelete = () => {
+    deleteUser();
+    localStorage.removeItem("authToken");
+    setAccountDeleted(true);
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
   };
 
   return (
@@ -47,6 +70,10 @@ export default function ProfilePage() {
           <p>Name: {userData.name}</p>
           <p>Email: {userData.email}</p>
           <button onClick={handleLogout}>Logout</button>
+          <button onClick={handleDelete}>Delete Account</button>
+          {accountDeleted && (
+            <p>Your account has been deleted, redirecting to homepage</p>
+          )}
         </section>
       )}
       {error && <p>{error}</p>}
