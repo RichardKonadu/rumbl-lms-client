@@ -48,6 +48,14 @@ export default function Predictions() {
     });
   };
 
+  const handleGameweek = (direction) => {
+    if (direction === "back") {
+      setGameweek(gameweek - 1);
+    } else {
+      setGameweek(gameweek + 1);
+    }
+  };
+
   const handleSubmit = () => {
     sendPrediction();
   };
@@ -76,7 +84,7 @@ export default function Predictions() {
   useEffect(() => {
     fetchFixtures();
     fetchTeams();
-  }, []);
+  }, [gameweek]);
 
   if (!fixtures) {
     return <p className="loading">Loading...</p>;
@@ -87,12 +95,18 @@ export default function Predictions() {
       <h2 className="fixtures__title">Fixtures</h2>
       <div className="gameweek">
         <img
+          onClick={() => handleGameweek("back")}
           className="gameweek__icons"
           src={backSVG}
           alt="previous gameweek"
         />
         <h3>GW {gameweek} </h3>
-        <img className="gameweek__icons" src={nextSVG} alt="next gameweek" />
+        <img
+          onClick={() => handleGameweek("forward")}
+          className="gameweek__icons"
+          src={nextSVG}
+          alt="next gameweek"
+        />
       </div>
       <ul className="fixture__list">
         {fixtures.map((fixture, index) => {
