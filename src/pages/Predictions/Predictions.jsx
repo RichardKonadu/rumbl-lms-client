@@ -3,11 +3,14 @@ import { useEffect, useState } from "react";
 import Fixtures from "../../components/Fixtures/Fixtures";
 import "../Predictions/Predictions.scss";
 import TeamButton from "../../components/TeamButton/TeamButton";
+import backSVG from "../../assets/icons/back.svg";
+import nextSVG from "../../assets/icons/next.svg";
 
 export default function Predictions() {
   const [teamsData, setTeamsData] = useState("");
   const [error, setError] = useState("");
   const [fixtures, setFixtures] = useState("");
+  const [gameweek, setGameweek] = useState(30);
   const [predictedTeam, setPredictedTeam] = useState({
     name: "",
     id: "",
@@ -17,7 +20,7 @@ export default function Predictions() {
   const fetchFixtures = async () => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API_BASE_URL}/fixtures`
+        `${import.meta.env.VITE_API_BASE_URL}/fixtures?gameweek=${gameweek}`
       );
       setFixtures(data);
     } catch (error) {
@@ -73,7 +76,6 @@ export default function Predictions() {
   useEffect(() => {
     fetchFixtures();
     fetchTeams();
-    sendPrediction();
   }, []);
 
   if (!fixtures) {
@@ -83,6 +85,15 @@ export default function Predictions() {
   return (
     <div className="fixtures__wrapper">
       <h2 className="fixtures__title">Fixtures</h2>
+      <div className="gameweek">
+        <img
+          className="gameweek__icons"
+          src={backSVG}
+          alt="previous gameweek"
+        />
+        <h3>GW {gameweek} </h3>
+        <img className="gameweek__icons" src={nextSVG} alt="next gameweek" />
+      </div>
       <ul className="fixture__list">
         {fixtures.map((fixture, index) => {
           return <Fixtures key={index} fixture={fixture} />;
