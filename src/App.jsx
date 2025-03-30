@@ -1,15 +1,19 @@
 import { useState } from "react";
 import viteLogo from "/vite.svg";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/Homepage/HomePage";
+import HomePage from "./pages/Homepage/Homepage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import "./App.scss";
 import Header from "./components/Header/Header";
 import Predictions from "./pages/Predictions/Predictions";
+import Leagues from "./pages/Leagues/Leagues";
+import Footer from "./components/Footer/Footer";
 
 export default function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <BrowserRouter>
       <Header />
@@ -18,8 +22,18 @@ export default function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/predictions" element={<Predictions />} />
+        <Route
+          path="/predictions"
+          element={
+            <Predictions
+              setIsModalOpen={setIsModalOpen}
+              isModalOpen={isModalOpen}
+            />
+          }
+        />
+        <Route path="/leagues" element={<Leagues />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

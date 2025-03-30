@@ -1,4 +1,18 @@
+.signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  height: 78vh;
+  margin: 0;
+}
+
 .form {
+  &__wrapper {
+    background-color: rgb(248, 228, 186);
+    padding: 2rem;
+    border-radius: 20px;
+  }
   &__input {
     border-radius: 20px;
     border: solid 1px rgb(0, 121, 255);

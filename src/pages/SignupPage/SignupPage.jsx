@@ -49,43 +49,45 @@ export default function SignupPage() {
     }
   };
   return (
-    <main>
-      <h2>Sign Up</h2>
-      <form className="form" onSubmit={handleSubmit}>
-        <div className="form__group">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            className="form__input"
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
-        <div className="form__group">
-          <label htmlFor="emailRegister">Email</label>
-          <input
-            type="text"
-            name="email"
-            id="emailRegister"
-            className="form__input"
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
-        {errorMessage && <p>{errorMessage}</p>}
-        <div className="form__group">
-          <label htmlFor="passwordRegister">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="passwordRegister"
-            className="form__input"
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
-        <button className="form__button">Signup</button>
-        {success && <p>You're signed up! Redirecting to login page...</p>}
-      </form>
+    <main className="signup">
+      <div className="form__wrapper">
+        <h2>Sign Up</h2>
+        <form className="form" onSubmit={handleSubmit}>
+          <div className="form__group">
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              className="form__input"
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+          <div className="form__group">
+            <label htmlFor="emailRegister">Email</label>
+            <input
+              type="text"
+              name="email"
+              id="emailRegister"
+              className="form__input"
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+          {errorMessage && <p>{errorMessage}</p>}
+          <div className="form__group">
+            <label htmlFor="passwordRegister">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="passwordRegister"
+              className="form__input"
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+          <button className="form__button">Signup</button>
+          {success && <p>You're signed up! Redirecting to login page...</p>}
+        </form>
+      </div>
     </main>
   );
 }

@@ -5,12 +5,18 @@ import "../Predictions/Predictions.scss";
 import TeamButton from "../../components/TeamButton/TeamButton";
 import backSVG from "../../assets/icons/back.svg";
 import nextSVG from "../../assets/icons/next.svg";
+import Modal from "../../components/Modal/Modal";
+import { data } from "react-router-dom";
+import Leagues from "../Leagues/Leagues";
 
-export default function Predictions() {
-  const [teamsData, setTeamsData] = useState("");
+export default function Predictions({ setIsModalOpen, isModalOpen }) {
+  const [teamsData, setTeamsData] = useState([]);
   const [error, setError] = useState("");
   const [fixtures, setFixtures] = useState("");
   const [gameweek, setGameweek] = useState(30);
+  const [previousPredictions, setPreviousPredictions] = useState(null);
+  const [leagues, setLeagues] = useState(null);
+  const [selectedLeague, setSelectedLeague] = useState("");
   const [predictedTeam, setPredictedTeam] = useState({
     name: "",
     id: "",
@@ -28,6 +34,23 @@ export default function Predictions() {
     }
   };
 
+  const fetchLeagues = async () => {
+    const authToken = localStorage.getItem("authToken");
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/leagueuser`,
+        {
+          headers: {
+            authorisation: `Bearer ${authToken}`,
+          },
+        }
+      );
+      setLeagues(data);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const fetchTeams = async () => {
     try {
       const { data } = await axios.get(
@@ -39,15 +62,6 @@ export default function Predictions() {
     }
   };
 
-  const handlePredictedTeam = (team) => {
-    setPredictedTeam({
-      ...predictedTeam,
-      id: team.id,
-      name: team.name,
-      abbr: team.abbr,
-    });
-  };
-
   const handleGameweek = (direction) => {
     if (direction === "back") {
       setGameweek(gameweek - 1);
@@ -56,7 +70,11 @@ export default function Predictions() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSelectedLeague = (e) => {
+    setSelectedLeague(e.target.value);
+  };
+
+  const handlePredictionSubmission = () => {
     sendPrediction();
   };
 
@@ -67,8 +85,8 @@ export default function Predictions() {
         `${import.meta.env.VITE_API_BASE_URL}/predictions`,
         {
           team_id: predictedTeam.id,
-          league_id: 1,
-          game_week: 1,
+          league_id: selectedLeague,
+          game_week: gameweek,
         },
         {
           headers: {
@@ -81,17 +99,81 @@ export default function Predictions() {
     }
   };
 
+  const getPredictions = async () => {
+    const authToken = localStorage.getItem("authToken");
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/predictions/${selectedLeague}`,
+        {
+          headers: {
+            authorisation: `Bearer ${authToken}`,
+          },
+        }
+      );
+      setPreviousPredictions(data);
+    } catch (error) {
+      setError("No predictions found");
+    }
+  };
+
   useEffect(() => {
     fetchFixtures();
     fetchTeams();
-  }, [gameweek]);
+    getPredictions();
+    fetchLeagues();
+  }, [gameweek, selectedLeague]);
 
   if (!fixtures) {
     return <p className="loading">Loading...</p>;
   }
 
+  if (!teamsData) {
+    return <p className="loading">Loading...</p>;
+  }
+
+  if (!previousPredictions) {
+    return <p className="loading">Loading...</p>;
+  }
+
+  if (!leagues) {
+    return <p className="loading">Loading...</p>;
+  }
+
   return (
     <div className="fixtures__wrapper">
+      <select onChange={(e) => handleSelectedLeague(e)} name="" id={leagues.id}>
+        <option value="">Select League</option>
+        {leagues.map((league, index) => {
+          return (
+            <option key={index} value={league.league_id}>
+              {league.name}
+            </option>
+          );
+        })}
+      </select>
+      {isModalOpen && (
+        <Modal
+          setIsModalOpen={setIsModalOpen}
+          isModalOpen={isModalOpen}
+          predictedTeam={predictedTeam}
+          handlePredictionSubmission={handlePredictionSubmission}
+        />
+      )}
+
+      {selectedLeague && (
+        <ul className="predictions">
+          {previousPredictions.map((prediction, index) => {
+            return (
+              <TeamButton
+                key={index}
+                prediction={prediction}
+                teamsData={teamsData}
+              />
+            );
+          })}
+        </ul>
+      )}
+
       <h2 className="fixtures__title">Fixtures</h2>
       <div className="gameweek">
         <img
@@ -110,21 +192,18 @@ export default function Predictions() {
       </div>
       <ul className="fixture__list">
         {fixtures.map((fixture, index) => {
-          return <Fixtures key={index} fixture={fixture} />;
-        })}
-      </ul>
-      <ul className="predictions">
-        {teamsData.map((team, index) => {
           return (
-            <TeamButton
+            <Fixtures
+              setPredictedTeam={setPredictedTeam}
+              predictedTeam={predictedTeam}
               key={index}
-              team={team}
-              handlePredictedTeam={handlePredictedTeam}
+              fixture={fixture}
+              setIsModalOpen={setIsModalOpen}
+              isModalOpen={isModalOpen}
             />
           );
         })}
       </ul>
-      <button onClick={handleSubmit}></button>
     </div>
   );
 }

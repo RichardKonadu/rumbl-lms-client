@@ -12,7 +12,7 @@ export default function Header() {
 
   return (
     <header className="header">
-      <h1 className="header__title">Rumbl</h1>
+      <h1 className="header__title">Rumbl.</h1>
       <Menu
         noOverlay
         right
@@ -48,6 +48,11 @@ export default function Header() {
                 onClick={closeMenu}
               >
                 Predictions
+              </NavLink>
+            </li>
+            <li>
+              <NavLink className="nav__link" to="/leagues" onClick={closeMenu}>
+                Leagues
               </NavLink>
             </li>
           </ul>

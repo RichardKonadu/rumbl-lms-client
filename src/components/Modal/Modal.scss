@@ -1,0 +1,91 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+body {
+  height: 100%;
+}
+.modal {
+  width: 90vw;
+  height: 35%;
+  color: white;
+  top: 30%;
+  position: absolute;
+  min-width: 21.4375rem;
+  z-index: 100;
+  background-color: rgb(0, 121, 255);
+  border-radius: 20px;
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  &__title {
+    font-size: 1.75rem;
+    line-height: 2.25rem;
+    font-weight: 400;
+    width: 80%;
+    margin: 1rem 0;
+    color: white;
+  }
+
+  &__text {
+    text-align: center;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+
+    width: 100%;
+  }
+
+  &__btn-container {
+    display: flex;
+    margin-top: 5rem;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__btn {
+    cursor: pointer;
+    width: 10.1875rem;
+    height: 2.25rem;
+    border-radius: 20px;
+    border: none;
+    background-color: white;
+    border: 1px solid grey;
+    color: rgb(0, 121, 255);
+
+    &--cancel {
+      border: solid 1px red;
+      color: red;
+    }
+
+    &--highlight {
+      background-color: red;
+      color: white;
+      border-color: red;
+      margin-left: 1rem;
+    }
+  }
+}
