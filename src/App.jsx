@@ -17,22 +17,24 @@ export default function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route
-          path="/predictions"
-          element={
-            <Predictions
-              setIsModalOpen={setIsModalOpen}
-              isModalOpen={isModalOpen}
-            />
-          }
-        />
-        <Route path="/leagues" element={<Leagues />} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route
+            path="/predictions"
+            element={
+              <Predictions
+                setIsModalOpen={setIsModalOpen}
+                isModalOpen={isModalOpen}
+              />
+            }
+          />
+          <Route path="/leagues" element={<Leagues />} />
+        </Routes>
+      </main>
       <Footer />
     </BrowserRouter>
   );

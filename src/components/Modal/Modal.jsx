@@ -2,7 +2,7 @@ import "./Modal.scss";
 
 export default function Modal({
   setIsModalOpen,
-  isModalOpe,
+  isModalOpen,
   predictedTeam,
   handlePredictionSubmission,
 }) {

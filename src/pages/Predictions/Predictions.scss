@@ -11,6 +11,12 @@
   }
 }
 
+.dropdown {
+  align-self: flex-start;
+  margin-left: 1rem;
+  padding: 0.5rem;
+}
+
 .fixture__list {
   display: flex;
   flex-direction: column;
@@ -18,6 +24,10 @@
   gap: 1rem;
   width: 100%;
   padding: 1rem 1rem;
+
+  &--inactive {
+    filter: blur(5px);
+  }
 }
 
 .fixtures {
@@ -36,6 +46,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    width: 100vw;
   }
 }
 

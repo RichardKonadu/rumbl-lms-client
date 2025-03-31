@@ -51,7 +51,7 @@ export default function SignupPage() {
   return (
     <main className="signup">
       <div className="form__wrapper">
-        <h2>Sign Up</h2>
+        <h2 className="form__title">Sign Up</h2>
         <form className="form" onSubmit={handleSubmit}>
           <div className="form__group">
             <label htmlFor="name">Name</label>

@@ -36,6 +36,7 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
 
   const fetchLeagues = async () => {
     const authToken = localStorage.getItem("authToken");
+    // option 2 - if no auth token, show them something else.
     try {
       const { data } = await axios.get(
         `${import.meta.env.VITE_API_BASE_URL}/leagueuser`,
@@ -47,7 +48,9 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
       );
       setLeagues(data);
     } catch (error) {
-      throw error;
+      // If this failed, likely they aren't logged in or dont have an account.
+      // Still want to show them fixtures and want to show to sign up.
+      console.log("test");
     }
   };
 
@@ -141,7 +144,12 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
 
   return (
     <div className="fixtures__wrapper">
-      <select onChange={(e) => handleSelectedLeague(e)} name="" id={leagues.id}>
+      <select
+        className="dropdown"
+        onChange={(e) => handleSelectedLeague(e)}
+        name=""
+        id={leagues.id}
+      >
         <option value="">Select League</option>
         {leagues.map((league, index) => {
           return (
@@ -190,7 +198,11 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
           alt="next gameweek"
         />
       </div>
-      <ul className="fixture__list">
+      <ul
+        className={`fixture__list ${
+          isModalOpen ? "fixture__list--inactive" : ""
+        }`}
+      >
         {fixtures.map((fixture, index) => {
           return (
             <Fixtures

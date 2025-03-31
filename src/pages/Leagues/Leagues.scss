@@ -1,0 +1,35 @@
+@use "../../styles/partials/variables" as *;
+
+.leagues {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.button {
+  background-color: $text-primary;
+  color: white;
+  padding: 0.5rem;
+  width: 10rem;
+  height: 4rem;
+  border-radius: 20px;
+  border: 2px solid $text-primary;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 2rem;
+  }
+}
+
+.create__league {
+  flex-direction: column;
+  display: flex;
+  gap: 1rem;
+}
+// .registration {
+//   display: flex;
+//   flex-direction: row;
+// }

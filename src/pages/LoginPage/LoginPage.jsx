@@ -54,7 +54,7 @@ export default function LoginPage() {
   };
 
   return (
-    <main>
+    <main className="login">
       <h2>Login</h2>
       <form className="form" onSubmit={handleSubmit}>
         <div className="form__group">
