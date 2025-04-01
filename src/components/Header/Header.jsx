@@ -55,6 +55,15 @@ export default function Header() {
                 Leagues
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                className="nav__link"
+                to="/league-standings"
+                onClick={closeMenu}
+              >
+                League Standings
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </Menu>

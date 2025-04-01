@@ -25,7 +25,7 @@ export default function Leagues() {
       );
       setLeagues(data);
     } catch (error) {
-      setError("You must be logged in to view results");
+      setError("You must be logged in to view leagues");
     }
   };
 

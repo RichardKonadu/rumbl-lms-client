@@ -10,6 +10,7 @@ import Header from "./components/Header/Header";
 import Predictions from "./pages/Predictions/Predictions";
 import Leagues from "./pages/Leagues/Leagues";
 import Footer from "./components/Footer/Footer";
+import LeagueStandings from "./pages/LeagueStandings/LeagueStandings";
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,6 +34,7 @@ export default function App() {
             }
           />
           <Route path="/leagues" element={<Leagues />} />
+          <Route path="/league-standings" element={<LeagueStandings />} />
         </Routes>
       </main>
       <Footer />
