@@ -8,7 +8,7 @@ export default function LeagueStandings() {
   const [leagues, setLeagues] = useState("");
   const [error, setError] = useState("");
   const [selectedLeague, setSelectedLeague] = useState(null);
-  const [predictionResults, setPredictionResults] = useState("");
+  const [predictionResults, setPredictionResults] = useState(null);
   const [leagueUsers, setLeagueUsers] = useState([]);
 
   const fetchLeagues = async () => {
@@ -72,12 +72,6 @@ export default function LeagueStandings() {
       setError("No users for selected league found");
     }
   };
-  //   step 1, figure out how many users are in this league e.g. 5
-  //   do a loop which runs x =(5 in this case) amount of times
-  // in that loop filter by user id and map
-  // neeed to get the predictions for a specifc user so I can display it in a line
-  //   option 1 is to use endpoint that gets prediction by user - issue is I don't know how many users will be in this league
-  //   make a component for users prediction - to split some of the logic
 
   useEffect(() => {
     fetchLeagues();
@@ -87,9 +81,7 @@ export default function LeagueStandings() {
     return <p>loading...</p>;
   }
 
-  //   if (!predictionResults) {
-  //     return <p>loading...</p>;
-  //   }
+  console.log(predictionResults);
 
   return (
     <div className="league__standings">
@@ -103,15 +95,29 @@ export default function LeagueStandings() {
           );
         })}
       </select>
-      {leagueUsers.map((user, index) => {
-        return (
-          <UserResults
-            user={user}
-            key={index}
-            selectedLeague={selectedLeague}
-          />
-        );
-      })}
+      <p className="gameweek__title">Gameweek</p>
+      <section>
+        <ul className="gameweek__ul">
+          {predictionResults &&
+            predictionResults.map((prediction) => {
+              return (
+                <li className="gameweek__number" key={prediction.id}>
+                  {prediction.game_week}
+                </li>
+              );
+            })}
+        </ul>
+
+        {leagueUsers.map((user, index) => {
+          return (
+            <UserResults
+              user={user}
+              key={index}
+              selectedLeague={selectedLeague}
+            />
+          );
+        })}
+      </section>
     </div>
   );
 }

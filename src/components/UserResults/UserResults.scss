@@ -1,0 +1,23 @@
+.gameweek {
+  &__title {
+    margin-bottom: 1rem;
+  }
+  &__badge {
+    width: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: green;
+    border-radius: 20px;
+    padding: 0.5rem;
+
+    &--active {
+      width: 5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: red;
+      border-radius: 20px;
+    }
+  }
+}

@@ -76,9 +76,6 @@ export default function Leagues() {
     console.log(e.target.league_name.value);
 
     e.preventDefault();
-    // const formData = new FormData(e.target);
-    // const leagueName = formData.get("name");
-    // const sport = formData.get("sport");
 
     try {
       await axios.post(

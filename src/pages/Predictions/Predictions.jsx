@@ -36,7 +36,6 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
 
   const fetchLeagues = async () => {
     const authToken = localStorage.getItem("authToken");
-    // option 2 - if no auth token, show them something else.
     try {
       const { data } = await axios.get(
         `${import.meta.env.VITE_API_BASE_URL}/leagueuser`,
@@ -48,8 +47,6 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
       );
       setLeagues(data);
     } catch (error) {
-      // If this failed, likely they aren't logged in or dont have an account.
-      // Still want to show them fixtures and want to show to sign up.
       console.log("test");
     }
   };
