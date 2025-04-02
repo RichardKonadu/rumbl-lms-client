@@ -1,6 +1,9 @@
+@use "../../styles/partials/variables" as *;
+
 .gameweek {
   &__title {
-    margin-bottom: 1rem;
+    margin: 1rem 0;
+    color: $text-secondary;
   }
   &__badge {
     width: 3rem;

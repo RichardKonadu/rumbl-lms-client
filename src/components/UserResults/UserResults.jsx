@@ -3,9 +3,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function UserResults({ selectedLeague, user }) {
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState(null);
   const [error, setError] = useState("");
-  const [teamsData, setTeamsData] = useState([]);
+  const [teamsData, setTeamsData] = useState(null);
 
   const getPredictions = async () => {
     try {
@@ -31,53 +31,43 @@ export default function UserResults({ selectedLeague, user }) {
     }
   };
 
-  const userPredictions = results.filter(
-    (userResults) => user.user_id === userResults.user_id
-  );
-
-  const foundTeam = teamsData.find(
-    (team) => team.id === userPredictions.team_id
-  );
-
   useEffect(() => {
     getPredictions();
     getTeams();
   }, []);
 
-  if (!teamsData) {
-    return;
+  if (!results || !teamsData) {
+    return <p>Loading.....</p>;
   }
 
-  return (
-    <>
-      <ul className="gameweek__ul">
-        <li>{user.name}</li>
-        {userPredictions.map((userPrediction) => {
-          return <li>{userPrediction.team_id}</li>;
-        })}
-      </ul>
-    </>
+  const userPredictions = results.filter(
+    (userResults) => user.user_id === userResults.user_id
   );
 
-  //   return (
-  //     <ul>
-  //       <li>{user.name}</li>
-  //       {userPredictions.map((userPrediction) => {
-  //         return (
-  //           <>
-  //             <li key={userPrediction.id}> {userPrediction.team_id}</li>
-  //             <li> {userPrediction.game_week}</li>
-  //             <li>
-  //               {" "}
-  //               {userPrediction.did_win === 1 ? (
-  //                 <p>They won</p>
-  //               ) : (
-  //                 <p> They lost</p>
-  //               )}
-  //             </li>
-  //           </>
-  //         );
-  //       })}
-  //     </ul>
-  //   );
+  const predictionTeams = userPredictions.map((prediction) => {
+    const foundTeam = teamsData.find((team) => team.id === prediction.team_id);
+    return { ...prediction, team: foundTeam };
+  });
+
+  return (
+    <ul className="gameweek__ul">
+      <li className="gameweek__user">{user.name}</li>
+      {predictionTeams.map((team) => {
+        return (
+          <div className="gameweek__badge-wrapper" key={team.id}>
+            <img
+              className={`gameweek__badge ${
+                team.did_win === 0 ? "gameweek__badge--active" : ""
+              }`}
+              src={`/src/assets/images/${team.team.name.replace(
+                /\s+/g,
+                "-"
+              )}.svg`}
+              alt={`${team.team.name} badge`}
+            />
+          </div>
+        );
+      })}
+    </ul>
+  );
 }

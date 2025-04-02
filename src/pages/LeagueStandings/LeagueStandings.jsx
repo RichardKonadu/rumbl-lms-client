@@ -10,6 +10,7 @@ export default function LeagueStandings() {
   const [selectedLeague, setSelectedLeague] = useState(null);
   const [predictionResults, setPredictionResults] = useState(null);
   const [leagueUsers, setLeagueUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchLeagues = async () => {
     const authToken = localStorage.getItem("authToken");
@@ -23,6 +24,7 @@ export default function LeagueStandings() {
         }
       );
       setLeagues(data);
+      // setLoading(false);
     } catch (error) {
       setError("You must be logged in to view league standings");
     }
@@ -77,9 +79,9 @@ export default function LeagueStandings() {
     fetchLeagues();
   }, []);
 
-  if (error) {
-    return <p className="error">{error}</p>;
-  }
+  // if (!loading && error) {
+  //   return <p className="error">{error}</p>;
+  // }
 
   if (!leagues) {
     return <p>loading...</p>;
@@ -87,7 +89,7 @@ export default function LeagueStandings() {
 
   return (
     <div className="league__standings">
-      <h1 className="title">League Standings</h1>
+      <h1 className="gameweek__title">League Standings</h1>
       <select onChange={handleSelectedLeague} name="selected_league">
         {leagues.map((league) => {
           <option value="">Select League</option>;
