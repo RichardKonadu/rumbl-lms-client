@@ -57,7 +57,7 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
         if (error.response.status === 401) {
           setError("You must be logged in to make predictions");
         } else {
-          setError("An error occurred while fetching leagues");
+          setError("An error occurred while fetching predictions");
         }
       }
     }

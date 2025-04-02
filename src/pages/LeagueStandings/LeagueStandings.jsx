@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./LeagueStandings.scss";
-import { data } from "react-router-dom";
+// import { data } from "react-router-dom";
 import axios from "axios";
 import UserResults from "../../components/UserResults/UserResults";
 
@@ -24,7 +24,7 @@ export default function LeagueStandings() {
       );
       setLeagues(data);
     } catch (error) {
-      setError("You must be logged in to view leagues");
+      setError("You must be logged in to view league standings");
     }
   };
 
@@ -77,8 +77,9 @@ export default function LeagueStandings() {
     fetchLeagues();
   }, []);
 
-  console.log(predictionResults);
-  console.log(leagues);
+  if (error) {
+    return <p className="error">{error}</p>;
+  }
 
   if (!leagues) {
     return <p>loading...</p>;
