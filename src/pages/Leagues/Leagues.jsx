@@ -97,6 +97,10 @@ export default function Leagues() {
     fetchLeagues();
   }, []);
 
+  if (error) {
+    return <p className="error">{error}</p>;
+  }
+
   if (!leagues) {
     return <p>loading...</p>;
   }
