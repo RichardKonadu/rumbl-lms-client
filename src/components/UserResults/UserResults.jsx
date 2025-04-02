@@ -54,7 +54,7 @@ export default function UserResults({ selectedLeague, user }) {
       <li className="gameweek__user">{user.name}</li>
       {predictionTeams.map((team) => {
         return (
-          <div key={team.id}>
+          <div className="gameweek__badge-wrapper" key={team.id}>
             <img
               className={`gameweek__badge ${
                 team.did_win === 0 ? "gameweek__badge--active" : ""

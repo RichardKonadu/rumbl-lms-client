@@ -1,3 +1,5 @@
+@use "../../styles/partials/variables" as *;
+
 .gameweek {
   display: flex;
   flex-direction: row;
@@ -6,6 +8,11 @@
   width: 100%;
   padding: 0 1.8rem;
 
+  &__title {
+    color: $text-secondary;
+    font-weight: 700;
+  }
+
   &__icons {
     width: 2rem;
   }
@@ -13,7 +20,7 @@
 
 .dropdown {
   align-self: flex-start;
-  margin-left: 1rem;
+  margin: 1rem;
   padding: 0.5rem;
 }
 
@@ -32,11 +39,7 @@
 
 .fixtures {
   &__title {
-    background: linear-gradient(to right, red, orange, blue);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-weight: bold;
+    color: $text-secondary;
     margin-bottom: 0.5rem;
   }
 

@@ -77,46 +77,59 @@ export default function LeagueStandings() {
     fetchLeagues();
   }, []);
 
+  console.log(predictionResults);
+  console.log(leagues);
+
   if (!leagues) {
     return <p>loading...</p>;
   }
-
-  console.log(predictionResults);
 
   return (
     <div className="league__standings">
       <h1 className="title">League Standings</h1>
       <select onChange={handleSelectedLeague} name="selected_league">
-        {leagues.map((league, index) => {
+        {leagues.map((league) => {
+          <option value="">Select League</option>;
           return (
-            <option key={index} value={league.league_id}>
+            <option key={league.league_id} value={league.league_id}>
               {league.name}
             </option>
           );
         })}
       </select>
-      <p className="gameweek__title">Gameweek</p>
       <section>
-        <ul className="gameweek__ul">
-          {predictionResults &&
-            predictionResults.map((prediction) => {
-              return (
-                <li className="gameweek__number" key={prediction.id}>
-                  {prediction.game_week}
-                </li>
-              );
-            })}
-        </ul>
-
-        {leagueUsers.map((user, index) => {
-          return (
-            <UserResults
-              user={user}
-              key={index}
-              selectedLeague={selectedLeague}
-            />
-          );
-        })}
+        <p className="gameweek__title">Gameweek</p>
+        <section className="gameweek__scroll-wrapper">
+          {predictionResults && (
+            <>
+              <ul className="gameweek__ul">
+                <li className="gameweek__user"></li>
+                {predictionResults
+                  .filter(
+                    (prediction, index, self) =>
+                      index ===
+                      self.findIndex(
+                        (p) => p.game_week === prediction.game_week
+                      )
+                  )
+                  .map((prediction) => (
+                    <li className="gameweek__number" key={prediction.id}>
+                      {prediction.game_week}
+                    </li>
+                  ))}
+              </ul>
+            </>
+          )}
+          {leagueUsers.map((user, index) => {
+            return (
+              <UserResults
+                user={user}
+                key={index}
+                selectedLeague={selectedLeague}
+              />
+            );
+          })}
+        </section>
       </section>
     </div>
   );

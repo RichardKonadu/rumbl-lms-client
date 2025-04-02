@@ -36,8 +36,8 @@ export default function App() {
           <Route path="/leagues" element={<Leagues />} />
           <Route path="/league-standings" element={<LeagueStandings />} />
         </Routes>
+        <Footer />
       </main>
-      <Footer />
     </BrowserRouter>
   );
 }

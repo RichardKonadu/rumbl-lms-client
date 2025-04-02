@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../SignupPage/SignupPage.scss";
 import { useState } from "react";
 import axios from "axios";
@@ -54,7 +54,9 @@ export default function SignupPage() {
         <h2 className="form__title">Sign Up</h2>
         <form className="form" onSubmit={handleSubmit}>
           <div className="form__group">
-            <label htmlFor="name">Name</label>
+            <label className="form__label" htmlFor="name">
+              Name
+            </label>
             <input
               type="text"
               name="name"
@@ -64,7 +66,9 @@ export default function SignupPage() {
             />
           </div>
           <div className="form__group">
-            <label htmlFor="emailRegister">Email</label>
+            <label className="form__label" htmlFor="emailRegister">
+              Email
+            </label>
             <input
               type="text"
               name="email"
@@ -75,7 +79,9 @@ export default function SignupPage() {
           </div>
           {errorMessage && <p>{errorMessage}</p>}
           <div className="form__group">
-            <label htmlFor="passwordRegister">Password</label>
+            <label className="form__label" htmlFor="passwordRegister">
+              Password
+            </label>
             <input
               type="password"
               name="password"
@@ -85,6 +91,12 @@ export default function SignupPage() {
             />
           </div>
           <button className="form__button">Signup</button>
+          <p className="form__signup">
+            Already Signed up?
+            <Link to="/login">
+              <span className="form__signup--link"> {""}Login</span>
+            </Link>
+          </p>
           {success && <p>You're signed up! Redirecting to login page...</p>}
         </form>
       </div>

@@ -1,3 +1,5 @@
+@use "../../styles/partials/variables" as *;
+
 .fixture {
   display: flex;
   justify-content: space-between;
@@ -10,12 +12,12 @@
 }
 
 .badge {
-  width: 2rem;
+  width: 3rem;
   height: auto;
   padding: 0.2rem;
   cursor: pointer;
 
   &:hover {
-    border: solid 2px rgb(0, 121, 255);
+    border: solid 2px $text-secondary;
   }
 }

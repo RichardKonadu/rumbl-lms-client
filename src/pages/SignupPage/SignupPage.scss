@@ -11,8 +11,8 @@
 
 .form {
   &__wrapper {
-    background-color: $text-primary;
-    padding: 2rem;
+    background-color: $text-secondary;
+    padding: 1.5rem;
     border-radius: 20px;
     color: white;
   }
@@ -20,16 +20,40 @@
   &__title {
     color: white;
   }
+
+  &__label {
+    margin-bottom: 1rem;
+    display: block;
+  }
   &__input {
-    border-radius: 20px;
-    border: solid 1px rgb(0, 121, 255);
+    border-radius: 10px;
+    border: solid 1px $text-secondary;
+    padding: 0.5rem 0;
+    width: 100%;
   }
 
   &__button {
     border-radius: 20px;
-    border: solid rgb(0, 121, 255);
-    background-color: white;
+    border: solid 2px $text-secondary;
+    background-color: $background-primary;
     padding: 0.5rem 3rem;
-    color: $text-primary;
+    width: 100%;
+    color: $text-secondary;
+    margin: 0 2rem;
+    margin: 1rem 0;
+  }
+
+  &__group {
+    margin: 1rem 0;
+  }
+
+  &__signup {
+    font-size: 0.8rem;
+
+    &--link {
+      color: $text-primary;
+      font-weight: 700;
+      font-size: 1rem;
+    }
   }
 }

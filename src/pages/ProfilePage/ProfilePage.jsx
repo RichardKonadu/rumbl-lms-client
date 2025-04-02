@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./ProfilePage.scss";
 
 export default function ProfilePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -66,11 +67,15 @@ export default function ProfilePage() {
     <main>
       {isLoading && <h1>Loading...</h1>}
       {!isLoading && !error && (
-        <section>
+        <section className="profile__wrapper">
           <p>Name: {userData.name}</p>
           <p>Email: {userData.email}</p>
-          <button onClick={handleLogout}>Logout</button>
-          <button onClick={handleDelete}>Delete Account</button>
+          <button onClick={handleLogout} className="profile__button">
+            Logout
+          </button>
+          <button className="profile__button" onClick={handleDelete}>
+            Delete Account
+          </button>
           {accountDeleted && (
             <p>Your account has been deleted, redirecting to homepage</p>
           )}

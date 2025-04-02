@@ -1,3 +1,5 @@
+@use "../../styles/partials/variables" as *;
+
 .header {
   display: flex;
 
@@ -18,7 +20,7 @@
   }
 
   &__link {
-    color: rgb(0, 121, 255);
+    color: $background-primary;
     text-decoration: none;
   }
 }
@@ -37,7 +39,7 @@
 }
 
 .bm-burger-bars {
-  background: rgb(0, 121, 255);
+  background: rgb(3, 29, 100);
 }
 
 .bm-burger-bars-hover {
@@ -50,7 +52,7 @@
 }
 
 .bm-cross {
-  background: #bdc3c7;
+  background: white;
 }
 
 .bm-menu-wrap {
@@ -59,7 +61,7 @@
 }
 
 .bm-menu {
-  background: rgb(54, 69, 79);
+  background: rgb(3, 29, 100);
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
 }
@@ -69,8 +71,8 @@
 }
 
 .bm-item-list {
-  color: rgb(0, 121, 255);
-  padding: 0.8em;
+  color: white;
+  padding: 0rem;
 }
 
 .bm-item {

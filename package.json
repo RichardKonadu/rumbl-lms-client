@@ -16,6 +16,7 @@
     "react-dom": "^19.0.0",
     "react-modal": "^3.16.3",
     "react-router-dom": "^7.4.0",
+    "react-spinners": "^0.15.0",
     "regex": "^6.0.1",
     "sass": "^1.86.0"
   },

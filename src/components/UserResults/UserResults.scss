@@ -3,7 +3,7 @@
     margin-bottom: 1rem;
   }
   &__badge {
-    width: 5rem;
+    width: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,12 +12,18 @@
     padding: 0.5rem;
 
     &--active {
-      width: 5rem;
+      width: 3rem;
       display: flex;
       justify-content: center;
       align-items: center;
       background-color: red;
       border-radius: 20px;
     }
+  }
+
+  &__badge-wrapper {
+    min-width: 4rem;
+    display: flex;
+    justify-content: center;
   }
 }

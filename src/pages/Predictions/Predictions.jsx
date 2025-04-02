@@ -8,6 +8,7 @@ import nextSVG from "../../assets/icons/next.svg";
 import Modal from "../../components/Modal/Modal";
 import { data } from "react-router-dom";
 import Leagues from "../Leagues/Leagues";
+import { BounceLoader } from "react-spinners";
 
 export default function Predictions({ setIsModalOpen, isModalOpen }) {
   const [teamsData, setTeamsData] = useState([]);
@@ -124,7 +125,15 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
   }, [gameweek, selectedLeague]);
 
   if (!fixtures) {
-    return <p className="loading">Loading...</p>;
+    return (
+      <BounceLoader
+        color="rgb(3, 29, 100)"
+        loading={BounceLoader}
+        size={100}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+    );
   }
 
   if (!teamsData) {
@@ -187,7 +196,7 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
           src={backSVG}
           alt="previous gameweek"
         />
-        <h3>GW {gameweek} </h3>
+        <h3 className="gameweek__title">GW {gameweek} </h3>
         <img
           onClick={() => handleGameweek("forward")}
           className="gameweek__icons"

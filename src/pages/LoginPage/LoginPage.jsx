@@ -2,6 +2,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../LoginPage/LoginPage.scss";
 import { useState } from "react";
+import "../SignupPage/SignupPage.scss";
 
 export default function LoginPage() {
   const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -55,11 +56,14 @@ export default function LoginPage() {
 
   return (
     <main className="login">
-      <h2>Login</h2>
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form__wrapper" onSubmit={handleSubmit}>
+        <h2 className="form__title">Login</h2>
         <div className="form__group">
-          <label htmlFor="email">Email</label>
+          <label className="form__label" htmlFor="email">
+            Email
+          </label>
           <input
+            className="form__input"
             type="text"
             name="email"
             id="email"
@@ -67,15 +71,18 @@ export default function LoginPage() {
           />
         </div>
         <div className="form__group">
-          <label htmlFor="password">Password</label>
+          <label className="form__label" htmlFor="password">
+            Password
+          </label>
           <input
+            className="form__input"
             type="password"
             name="password"
             id="password"
             onChange={(e) => handleChange(e)}
           />
         </div>
-        <button>Login</button>
+        <button className="form__button">Login</button>
         {errorMessage && <p>{errorMessage}</p>}
         {success && <p>Success! Redirecting to profile page...</p>}
       </form>
