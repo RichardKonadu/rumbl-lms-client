@@ -103,7 +103,7 @@ export default function Leagues() {
 
   return (
     <div className="leagues">
-      <h1>Leagues</h1>
+      <h1 className="leagues__title">Leagues</h1>
       <div className="button__wrapper">
         {!createLeagueFormVisibility && (
           <button
@@ -154,14 +154,15 @@ export default function Leagues() {
         )}
       </div>
       {createLeagueFormVisibility && (
-        <form className="create__league" onSubmit={handleFormData}>
+        <form className="create-league" onSubmit={handleFormData}>
           <label htmlFor="">League name</label>
           <input
+            className="form__input"
             type="text"
             placeholder="e.g. my cool league"
             name="league_name"
           />
-          <select name="sport">
+          <select className="create-league__dropdown" name="sport">
             <option value="">Select Sport</option>
             <option value="Premier League">English Premier League</option>
             <option value="NBA">NBA</option>

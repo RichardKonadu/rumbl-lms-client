@@ -1,20 +1,25 @@
 @use "../../styles/partials/variables" as *;
 
 .leagues {
-  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  justify-content: center;
+  gap: 3rem;
+  flex: 1;
+
+  &__title {
+    color: $text-secondary;
+  }
 }
 
 .button {
-  background-color: $text-primary;
+  background-color: $text-secondary;
   color: white;
   padding: 0.5rem;
-  width: 10rem;
+  width: 100%;
   height: 4rem;
   border-radius: 20px;
-  border: 2px solid $text-primary;
+  border: 2px solid $text-secondary;
 
   &__wrapper {
     display: flex;
@@ -25,8 +30,13 @@
   }
 }
 
-.create__league {
+.create-league {
   flex-direction: column;
   display: flex;
   gap: 1rem;
+  align-items: center;
+
+  &__dropdown {
+    width: 100%;
+  }
 }

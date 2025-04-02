@@ -6,11 +6,12 @@ import TeamButton from "../../components/TeamButton/TeamButton";
 import backSVG from "../../assets/icons/back.svg";
 import nextSVG from "../../assets/icons/next.svg";
 import Modal from "../../components/Modal/Modal";
-import { data } from "react-router-dom";
-import Leagues from "../Leagues/Leagues";
+// import { data } from "react-router-dom";
+// import Leagues from "../Leagues/Leagues";
 import { BounceLoader } from "react-spinners";
 
 export default function Predictions({ setIsModalOpen, isModalOpen }) {
+  const [isLoading, setIsLoading] = useState(true);
   const [teamsData, setTeamsData] = useState([]);
   const [error, setError] = useState("");
   const [fixtures, setFixtures] = useState("");
@@ -37,6 +38,7 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
 
   const fetchLeagues = async () => {
     const authToken = localStorage.getItem("authToken");
+
     try {
       const { data } = await axios.get(
         `${import.meta.env.VITE_API_BASE_URL}/leagueuser`,
@@ -47,8 +49,17 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
         }
       );
       setLeagues(data);
+      setIsLoading(false);
     } catch (error) {
-      console.log("test");
+      setIsLoading(false);
+
+      if (error.response) {
+        if (error.response.status === 401) {
+          setError("You must be logged in to make predictions");
+        } else {
+          setError("An error occurred while fetching leagues");
+        }
+      }
     }
   };
 
@@ -96,7 +107,10 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
         }
       );
     } catch (error) {
-      setError("You must be logged in to view this page");
+      if (error.status === 401) {
+        setError("You must be logged in to make a prediction");
+        setIsLoading(false);
+      }
     }
   };
 
@@ -113,7 +127,10 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
       );
       setPreviousPredictions(data);
     } catch (error) {
-      setError("No predictions found");
+      if (error.status === 401) {
+        setError("You must be logged in to view previous predictions");
+        setIsLoading(false);
+      }
     }
   };
 
@@ -124,11 +141,16 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
     fetchLeagues();
   }, [gameweek, selectedLeague]);
 
-  if (!fixtures) {
+  if (error) {
+    return <p className="error">{error}</p>;
+  }
+
+  if (isLoading) {
     return (
       <BounceLoader
+        className="loading"
         color="rgb(3, 29, 100)"
-        loading={BounceLoader}
+        loading={isLoading}
         size={100}
         aria-label="Loading Spinner"
         data-testid="loader"
@@ -136,92 +158,95 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
     );
   }
 
-  if (!teamsData) {
-    return <p className="loading">Loading...</p>;
-  }
-
-  if (!previousPredictions) {
-    return <p className="loading">Loading...</p>;
-  }
-
-  if (!leagues) {
-    return <p className="loading">Loading...</p>;
+  if (!fixtures || !teamsData || !previousPredictions || !leagues) {
+    return (
+      <BounceLoader
+        className="loading"
+        color="rgb(3, 29, 100)"
+        loading={isLoading}
+        size={100}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+    );
   }
 
   return (
-    <div className="fixtures__wrapper">
-      <select
-        className="dropdown"
-        onChange={(e) => handleSelectedLeague(e)}
-        name=""
-        id={leagues.id}
-      >
-        <option value="">Select League</option>
-        {leagues.map((league, index) => {
-          return (
-            <option key={index} value={league.league_id}>
-              {league.name}
-            </option>
-          );
-        })}
-      </select>
-      {isModalOpen && (
-        <Modal
-          setIsModalOpen={setIsModalOpen}
-          isModalOpen={isModalOpen}
-          predictedTeam={predictedTeam}
-          handlePredictionSubmission={handlePredictionSubmission}
-        />
-      )}
-
-      {selectedLeague && (
-        <ul className="predictions">
-          {previousPredictions.map((prediction, index) => {
+    <div className="predictions__wrapper">
+      <div className="fixtures__wrapper">
+        <select
+          className="dropdown"
+          onChange={(e) => handleSelectedLeague(e)}
+          name=""
+          id={leagues.id}
+        >
+          <option value="">Select League</option>
+          {leagues.map((league, index) => {
             return (
-              <TeamButton
+              <option key={index} value={league.league_id}>
+                {league.name}
+              </option>
+            );
+          })}
+        </select>
+        {isModalOpen && (
+          <Modal
+            setIsModalOpen={setIsModalOpen}
+            isModalOpen={isModalOpen}
+            predictedTeam={predictedTeam}
+            handlePredictionSubmission={handlePredictionSubmission}
+          />
+        )}
+
+        {selectedLeague && (
+          <ul className="predictions">
+            {previousPredictions.map((prediction, index) => {
+              return (
+                <TeamButton
+                  key={index}
+                  prediction={prediction}
+                  teamsData={teamsData}
+                />
+              );
+            })}
+          </ul>
+        )}
+
+        <h2 className="fixtures__title">Fixtures</h2>
+        <div className="gameweek">
+          <img
+            onClick={() => handleGameweek("back")}
+            className="gameweek__icons"
+            src={backSVG}
+            alt="previous gameweek"
+          />
+          <h3 className="gameweek__title">GW {gameweek} </h3>
+          <img
+            onClick={() => handleGameweek("forward")}
+            className="gameweek__icons"
+            src={nextSVG}
+            alt="next gameweek"
+          />
+        </div>
+        <ul
+          className={`fixture__list ${
+            isModalOpen ? "fixture__list--inactive" : ""
+          }`}
+        >
+          {fixtures.map((fixture, index) => {
+            return (
+              <Fixtures
+                setPredictedTeam={setPredictedTeam}
+                predictedTeam={predictedTeam}
                 key={index}
-                prediction={prediction}
-                teamsData={teamsData}
+                fixture={fixture}
+                setIsModalOpen={setIsModalOpen}
+                isModalOpen={isModalOpen}
               />
             );
           })}
         </ul>
-      )}
-
-      <h2 className="fixtures__title">Fixtures</h2>
-      <div className="gameweek">
-        <img
-          onClick={() => handleGameweek("back")}
-          className="gameweek__icons"
-          src={backSVG}
-          alt="previous gameweek"
-        />
-        <h3 className="gameweek__title">GW {gameweek} </h3>
-        <img
-          onClick={() => handleGameweek("forward")}
-          className="gameweek__icons"
-          src={nextSVG}
-          alt="next gameweek"
-        />
       </div>
-      <ul
-        className={`fixture__list ${
-          isModalOpen ? "fixture__list--inactive" : ""
-        }`}
-      >
-        {fixtures.map((fixture, index) => {
-          return (
-            <Fixtures
-              setPredictedTeam={setPredictedTeam}
-              predictedTeam={predictedTeam}
-              key={index}
-              fixture={fixture}
-              setIsModalOpen={setIsModalOpen}
-              isModalOpen={isModalOpen}
-            />
-          );
-        })}
-      </ul>
     </div>
   );
 }
