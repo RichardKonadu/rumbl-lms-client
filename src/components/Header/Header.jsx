@@ -27,6 +27,15 @@ export default function Header() {
               </NavLink>
             </li>
             <li>
+              <NavLink
+                className="nav__link"
+                to="/howtoplay"
+                onClick={closeMenu}
+              >
+                How to play
+              </NavLink>
+            </li>
+            <li>
               <NavLink className="nav__link" to="/signup" onClick={closeMenu}>
                 Sign Up
               </NavLink>
