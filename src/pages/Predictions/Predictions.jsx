@@ -7,6 +7,7 @@ import backSVG from "../../assets/icons/back.svg";
 import nextSVG from "../../assets/icons/next.svg";
 import Modal from "../../components/Modal/Modal";
 import { BounceLoader } from "react-spinners";
+import { Link } from "react-router-dom";
 
 export default function Predictions({ setIsModalOpen, isModalOpen }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -140,7 +141,14 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
   }, [gameweek, selectedLeague]);
 
   if (error) {
-    return <p className="error">{error}</p>;
+    return (
+      <div className="error__wrapper">
+        <p className="error">{error}</p>
+        <Link className="error__cta" to="/signup">
+          Signup
+        </Link>
+      </div>
+    );
   }
 
   if (isLoading) {

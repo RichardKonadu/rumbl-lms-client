@@ -16,7 +16,7 @@
     border-radius: 20px;
     padding: 0.5rem;
 
-    &--active {
+    &--eliminated {
       background-color: red;
     }
   }
@@ -51,7 +51,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: transparent;
+  // background-color: red;
   border-radius: 20px;
   padding: 0.2rem;
 }
