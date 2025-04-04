@@ -10,7 +10,7 @@ import Predictions from "./pages/Predictions/Predictions";
 import Leagues from "./pages/Leagues/Leagues";
 import Footer from "./components/Footer/Footer";
 import LeagueStandings from "./pages/LeagueStandings/LeagueStandings";
-// import HowToPlay from "./pages/HowToPlay/HowtoPlay";
+import HowToPlay from "./pages/HowToPlay/HowToPlay";
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,7 +21,7 @@ export default function App() {
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          {/* <Route path="/how-to-play" element={<HowToPlay />} /> */}
+          <Route path="/how-to-play" element={<HowToPlay />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<ProfilePage />} />
