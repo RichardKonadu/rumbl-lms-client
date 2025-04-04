@@ -21,7 +21,7 @@ export default function App() {
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/howtoplay" element={<HowToPlay />} />
+          <Route path="/how-to-play" element={<HowToPlay />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<ProfilePage />} />
