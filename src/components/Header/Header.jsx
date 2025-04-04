@@ -1,13 +1,19 @@
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import "../Header/Header.scss";
 import { push as Menu } from "react-burger-menu";
 import { useState } from "react";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const authToken = localStorage.getItem("authToken");
 
   const closeMenu = () => {
     setMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    closeMenu();
   };
 
   return (
@@ -35,21 +41,45 @@ export default function Header() {
                 How to play
               </NavLink>
             </li>
-            <li>
-              <NavLink className="nav__link" to="/signup" onClick={closeMenu}>
-                Sign Up
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="nav__link" to="/login" onClick={closeMenu}>
-                Login
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="nav__link" to="/profile" onClick={closeMenu}>
-                Profile
-              </NavLink>
-            </li>
+            {!authToken ? (
+              <>
+                <li>
+                  <NavLink
+                    className="nav__link"
+                    to="/signup"
+                    onClick={closeMenu}
+                  >
+                    Sign Up
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="nav__link"
+                    to="/login"
+                    onClick={closeMenu}
+                  >
+                    Login
+                  </NavLink>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <NavLink
+                    className="nav__link"
+                    to="/profile"
+                    onClick={closeMenu}
+                  >
+                    Profile
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink className="nav__link" to="/" onClick={handleLogout}>
+                    Logout
+                  </NavLink>
+                </li>
+              </>
+            )}
             <li>
               <NavLink
                 className="nav__link"

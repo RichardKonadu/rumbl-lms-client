@@ -24,7 +24,6 @@ export default function Fixtures({
 
     if (hasTeamBeenPicked) {
       setPreviouslyPredicted(true);
-      console.log("previously predicted");
     } else {
       setPreviouslyPredicted(false);
     }

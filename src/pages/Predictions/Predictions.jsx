@@ -211,7 +211,7 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
 
         {selectedLeague && (
           <>
-            <p className="previous__title">Previoulsy picked teams</p>
+            <p className="previous__title">Previously picked teams</p>
             <ul className="predictions">
               {previousPredictions.map((prediction, index) => {
                 return (
