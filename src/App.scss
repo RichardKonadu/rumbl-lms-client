@@ -1,9 +1,10 @@
 @use "./styles/partials/resets";
+@use "./styles/partials/variables" as *;
 
 h1,
 h2 {
   text-align: center;
-  color: rgb(0, 121, 255);
+  color: $text-primary;
 }
 
 main {

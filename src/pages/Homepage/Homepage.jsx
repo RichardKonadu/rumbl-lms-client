@@ -6,7 +6,9 @@ export default function Homepage() {
   return (
     <div className="homepage">
       <div className="homepage__content">
-        <Link className="homepage__button">How to play</Link>
+        <Link to="/howtoplay" className="homepage__button">
+          How to play
+        </Link>
         <Link
           to="/signup"
           className="homepage__button homepage__button--signup"

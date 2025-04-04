@@ -17,10 +17,12 @@
 }
 
 .gameweek__user {
-  width: 6rem;
+  width: 4rem;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  padding-left: 1rem;
+  font-size: 0.8rem;
+  // padding-left: 1rem;
 }
 
 .gameweek__number {
@@ -42,4 +44,23 @@
 
 .gameweek__scroll-wrapper {
   overflow: scroll;
+}
+
+.key {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 1rem;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    gap: 0.5rem;
+  }
+  &__icon {
+    width: 2rem;
+  }
 }

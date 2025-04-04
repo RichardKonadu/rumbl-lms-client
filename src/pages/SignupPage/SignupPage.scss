@@ -5,8 +5,8 @@
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  height: 78vh;
   margin: 0;
+  width: 60%;
 }
 
 .form {
@@ -28,8 +28,12 @@
   &__input {
     border-radius: 10px;
     border: solid 1px $text-secondary;
-    padding: 0.5rem 0;
+    padding: 0.5rem;
     width: 100%;
+
+    &:focus {
+      border: solid 2px red;
+    }
   }
 
   &__button {

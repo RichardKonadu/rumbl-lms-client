@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./Leagues.scss";
+import CancelButton from "../../components/CancelButton/CancelButton";
 
 export default function Leagues() {
   const authToken = localStorage.getItem("authToken");
@@ -63,6 +64,7 @@ export default function Leagues() {
     if (visbility === "open") {
       setCreateLeagueFormVisibility(true);
     } else setCreateLeagueFormVisibility(false);
+    setDropdownVisible(false);
   };
 
   const handleFormData = async (e) => {
@@ -119,20 +121,25 @@ export default function Leagues() {
         )}
 
         {dropdownVisible && (
-          <select
-            className="dropdown"
-            name="league_id"
-            onChange={handleLeagueSelection}
-          >
-            <option>Select League</option>
-            {leagues.map((league, index) => {
-              return (
-                <option key={index} value={league.id} name={league.name}>
-                  {league.name}
-                </option>
-              );
-            })}
-          </select>
+          <>
+            <select
+              className="dropdown"
+              name="league_id"
+              onChange={handleLeagueSelection}
+            >
+              <option>Select League</option>
+              {leagues.map((league, index) => {
+                return (
+                  <option key={index} value={league.id} name={league.name}>
+                    {league.name}
+                  </option>
+                );
+              })}
+            </select>
+            <CancelButton
+              handleCreateLeagueVisbility={handleCreateLeagueVisbility}
+            />
+          </>
         )}
         {!dropdownVisible && !createLeagueFormVisibility && (
           <button
@@ -174,13 +181,9 @@ export default function Leagues() {
           <button className="button" type="submit">
             Confirm league registration
           </button>
-          <button
-            className="button button--cancel"
-            onClick={() => handleCreateLeagueVisbility("closed")}
-            type="button"
-          >
-            Cancel
-          </button>
+          <CancelButton
+            handleCreateLeagueVisbility={handleCreateLeagueVisbility}
+          />
         </form>
       )}
     </div>

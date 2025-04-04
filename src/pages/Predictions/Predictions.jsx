@@ -6,8 +6,6 @@ import TeamButton from "../../components/TeamButton/TeamButton";
 import backSVG from "../../assets/icons/back.svg";
 import nextSVG from "../../assets/icons/next.svg";
 import Modal from "../../components/Modal/Modal";
-// import { data } from "react-router-dom";
-// import Leagues from "../Leagues/Leagues";
 import { BounceLoader } from "react-spinners";
 
 export default function Predictions({ setIsModalOpen, isModalOpen }) {
@@ -211,41 +209,44 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
             })}
           </ul>
         )}
-
-        <h2 className="fixtures__title">Fixtures</h2>
-        <div className="gameweek">
-          <img
-            onClick={() => handleGameweek("back")}
-            className="gameweek__icons"
-            src={backSVG}
-            alt="previous gameweek"
-          />
-          <h3 className="gameweek__title">GW {gameweek} </h3>
-          <img
-            onClick={() => handleGameweek("forward")}
-            className="gameweek__icons"
-            src={nextSVG}
-            alt="next gameweek"
-          />
-        </div>
-        <ul
-          className={`fixture__list ${
-            isModalOpen ? "fixture__list--inactive" : ""
-          }`}
-        >
-          {fixtures.map((fixture, index) => {
-            return (
-              <Fixtures
-                setPredictedTeam={setPredictedTeam}
-                predictedTeam={predictedTeam}
-                key={index}
-                fixture={fixture}
-                setIsModalOpen={setIsModalOpen}
-                isModalOpen={isModalOpen}
+        {selectedLeague && (
+          <>
+            <h2 className="fixtures__title">Fixtures</h2>
+            <div className="gameweek">
+              <img
+                onClick={() => handleGameweek("back")}
+                className="gameweek__icons"
+                src={backSVG}
+                alt="previous gameweek"
               />
-            );
-          })}
-        </ul>
+              <h3 className="gameweek__title">GW {gameweek} </h3>
+              <img
+                onClick={() => handleGameweek("forward")}
+                className="gameweek__icons"
+                src={nextSVG}
+                alt="next gameweek"
+              />
+            </div>
+            <ul
+              className={`fixture__list ${
+                isModalOpen ? "fixture__list--inactive" : ""
+              }`}
+            >
+              {fixtures.map((fixture, index) => {
+                return (
+                  <Fixtures
+                    setPredictedTeam={setPredictedTeam}
+                    predictedTeam={predictedTeam}
+                    key={index}
+                    fixture={fixture}
+                    setIsModalOpen={setIsModalOpen}
+                    isModalOpen={isModalOpen}
+                  />
+                );
+              })}
+            </ul>
+          </>
+        )}
       </div>
     </div>
   );

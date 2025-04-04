@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import "./LeagueStandings.scss";
-// import { data } from "react-router-dom";
 import axios from "axios";
 import UserResults from "../../components/UserResults/UserResults";
+import { BounceLoader } from "react-spinners";
 
 export default function LeagueStandings() {
   const [leagues, setLeagues] = useState("");
   const [error, setError] = useState("");
-  const [selectedLeague, setSelectedLeague] = useState(null);
+  const [selectedLeague, setSelectedLeague] = useState("");
   const [predictionResults, setPredictionResults] = useState(null);
   const [leagueUsers, setLeagueUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const authToken = localStorage.getItem("authToken");
 
   const fetchLeagues = async () => {
-    const authToken = localStorage.getItem("authToken");
     try {
       const { data } = await axios.get(
         `${import.meta.env.VITE_API_BASE_URL}/leagueuser`,
@@ -24,16 +24,19 @@ export default function LeagueStandings() {
         }
       );
       setLeagues(data);
-      // setLoading(false);
     } catch (error) {
       setError("You must be logged in to view league standings");
     }
   };
 
   const handleSelectedLeague = async (e) => {
-    setSelectedLeague(e.target.value);
-    fetchPredictions(e.target.value);
-    fetchLeagueUsers(e.target.value);
+    if (e.target.value !== "") {
+      setSelectedLeague(e.target.value);
+      fetchPredictions(e.target.value);
+    } else {
+      setError("You must select a league to see predictions");
+      setSelectedLeague("");
+    }
   };
 
   const fetchPredictions = async (leagueId) => {
@@ -50,6 +53,7 @@ export default function LeagueStandings() {
         }
       );
       setPredictionResults(data);
+      fetchLeagueUsers(leagueId);
     } catch (error) {
       setError("No predictions found");
     }
@@ -68,7 +72,6 @@ export default function LeagueStandings() {
           },
         }
       );
-      console.log(data);
       setLeagueUsers(data);
     } catch (error) {
       setError("No users for selected league found");
@@ -79,20 +82,20 @@ export default function LeagueStandings() {
     fetchLeagues();
   }, []);
 
-  // if (!loading && error) {
-  //   return <p className="error">{error}</p>;
-  // }
+  if (!authToken) {
+    return <p className="error">You must be logged in to view your leagues</p>;
+  }
 
   if (!leagues) {
-    return <p>loading...</p>;
+    return <BounceLoader />;
   }
 
   return (
     <div className="league__standings">
       <h1 className="gameweek__title">League Standings</h1>
       <select onChange={handleSelectedLeague} name="selected_league">
+        <option value=""> Select League</option>;
         {leagues.map((league) => {
-          <option value="">Select League</option>;
           return (
             <option key={league.league_id} value={league.league_id}>
               {league.name}
@@ -101,10 +104,28 @@ export default function LeagueStandings() {
         })}
       </select>
       <section>
-        <p className="gameweek__title">Gameweek</p>
-        <section className="gameweek__scroll-wrapper">
-          {predictionResults && (
+        {predictionResults && selectedLeague && (
+          <section className="gameweek__scroll-wrapper">
             <>
+              <div className="key">
+                <p className="gameweek__title">Gameweek</p>
+                <div className="key__wrapper">
+                  <img
+                    className="key__icon"
+                    src={"/src/assets/icons/green-circle.svg"}
+                    alt=""
+                  />
+
+                  <p> = Won</p>
+                  <img
+                    className="key__icon"
+                    src={"/src/assets/icons/red-circle.svg"}
+                    alt=""
+                  />
+
+                  <p>= Lost</p>
+                </div>
+              </div>
               <ul className="gameweek__ul">
                 <li className="gameweek__user"></li>
                 {predictionResults
@@ -122,17 +143,18 @@ export default function LeagueStandings() {
                   ))}
               </ul>
             </>
-          )}
-          {leagueUsers.map((user, index) => {
-            return (
-              <UserResults
-                user={user}
-                key={index}
-                selectedLeague={selectedLeague}
-              />
-            );
-          })}
-        </section>
+            {leagueUsers.map((user, index) => {
+              return (
+                <UserResults
+                  user={user}
+                  key={index}
+                  selectedLeague={selectedLeague}
+                  predictionResults={predictionResults}
+                />
+              );
+            })}
+          </section>
+        )}
       </section>
     </div>
   );

@@ -1,0 +1,52 @@
+@use "../../styles/partials/variables" as *;
+
+.howtoplay {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+
+  &__title {
+    color: $text-secondary;
+    margin-top: 1rem;
+  }
+
+  &__list {
+    align-self: flex-start;
+    margin: 2rem 0 1rem 0;
+    // padding: 1rem;
+    width: 90%;
+    text-align: left;
+    font-size: 0.9rem;
+  }
+
+  &__list-item {
+    margin-bottom: 0.3rem;
+  }
+}
+
+.get-started {
+  border: 2px solid $text-secondary;
+  border-radius: 10px;
+  padding: 1rem;
+  width: 80%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-self: flex-end;
+  background-color: $text-secondary;
+
+  &__title {
+    color: white;
+    margin-bottom: 3rem;
+  }
+
+  &__cta {
+    color: $text-secondary;
+    background-color: white;
+    border-radius: 20px;
+    padding: 0.5rem;
+    border: 2px solid $text-secondary;
+  }
+}

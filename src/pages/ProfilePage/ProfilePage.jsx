@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProfilePage.scss";
+import { BounceLoader } from "react-spinners";
 
 export default function ProfilePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -65,7 +66,7 @@ export default function ProfilePage() {
 
   return (
     <main>
-      {isLoading && <h1>Loading...</h1>}
+      {isLoading && <BounceLoader />}
       {!isLoading && !error && (
         <section className="profile__wrapper">
           <p>Name: {userData.name}</p>
