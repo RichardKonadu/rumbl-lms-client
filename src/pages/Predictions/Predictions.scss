@@ -62,10 +62,9 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 1rem;
   gap: 0.5rem;
-  background-color: RGB(220, 215, 200);
   margin: 1rem;
   border-radius: 20px;
 
@@ -73,6 +72,11 @@
     flex: 1;
     display: flex;
   }
+}
+
+.previous__title {
+  color: $text-secondary;
+  font-size: 1.2rem;
 }
 
 .error {
@@ -86,7 +90,8 @@
   &__cta {
     background-color: $text-secondary;
     color: white;
-    padding: 0.5rem 2rem;
+    padding: 0.5rem;
+    width: 60%;
     border-radius: 20px;
     font-size: 1.2rem;
   }

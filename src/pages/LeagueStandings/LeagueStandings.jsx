@@ -3,6 +3,7 @@ import "./LeagueStandings.scss";
 import axios from "axios";
 import UserResults from "../../components/UserResults/UserResults";
 import { BounceLoader } from "react-spinners";
+import { Link } from "react-router-dom";
 
 export default function LeagueStandings() {
   const [leagues, setLeagues] = useState("");
@@ -83,7 +84,17 @@ export default function LeagueStandings() {
   }, []);
 
   if (!authToken) {
-    return <p className="error">You must be logged in to view your leagues</p>;
+    return (
+      <div className="error__wrapper">
+        <p className="error">{error}</p>
+        <Link className="error__cta" to="/signup">
+          Signup
+        </Link>
+        <Link className="error__cta" to="/login">
+          Login
+        </Link>
+      </div>
+    );
   }
 
   if (!leagues) {

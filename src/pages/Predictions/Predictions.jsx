@@ -148,6 +148,9 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
         <Link className="error__cta" to="/signup">
           Signup
         </Link>
+        <Link className="error__cta" to="/login">
+          Login
+        </Link>
       </div>
     );
   }
@@ -207,17 +210,20 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
         )}
 
         {selectedLeague && (
-          <ul className="predictions">
-            {previousPredictions.map((prediction, index) => {
-              return (
-                <TeamButton
-                  key={index}
-                  prediction={prediction}
-                  teamsData={teamsData}
-                />
-              );
-            })}
-          </ul>
+          <>
+            <p className="previous__title">Previoulsy picked teams</p>
+            <ul className="predictions">
+              {previousPredictions.map((prediction, index) => {
+                return (
+                  <TeamButton
+                    key={index}
+                    prediction={prediction}
+                    teamsData={teamsData}
+                  />
+                );
+              })}
+            </ul>
+          </>
         )}
         {selectedLeague && (
           <>

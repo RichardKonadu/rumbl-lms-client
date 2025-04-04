@@ -29,7 +29,7 @@ export default function Header() {
             <li>
               <NavLink
                 className="nav__link"
-                to="/howtoplay"
+                to="/how-to-play"
                 onClick={closeMenu}
               >
                 How to play

@@ -6,7 +6,7 @@ export default function Homepage() {
   return (
     <div className="homepage">
       <div className="homepage__content">
-        <Link to="/howtoplay" className="homepage__button">
+        <Link to="/how-to-play" className="homepage__button">
           How to play
         </Link>
         <Link

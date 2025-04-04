@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./Leagues.scss";
 import CancelButton from "../../components/CancelButton/CancelButton";
+import { Link } from "react-router-dom";
 
 export default function Leagues() {
   const authToken = localStorage.getItem("authToken");
@@ -99,8 +100,20 @@ export default function Leagues() {
     fetchLeagues();
   }, []);
 
-  if (error) {
-    return <p className="error">{error}</p>;
+  if (!authToken) {
+    return (
+      <div className="error__wrapper">
+        <p className="error">
+          You must be logged in to create and join leagues
+        </p>
+        <Link className="error__cta" to="/signup">
+          Signup
+        </Link>
+        <Link className="error__cta" to="/login">
+          Login
+        </Link>
+      </div>
+    );
   }
 
   if (!leagues) {
