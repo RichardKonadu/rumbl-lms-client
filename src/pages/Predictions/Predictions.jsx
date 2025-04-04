@@ -16,6 +16,7 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
   const [fixtures, setFixtures] = useState("");
   const [gameweek, setGameweek] = useState(30);
   const [previousPredictions, setPreviousPredictions] = useState(null);
+  const [previouslyPredicted, setPreviouslyPredicted] = useState(false);
   const [leagues, setLeagues] = useState(null);
   const [selectedLeague, setSelectedLeague] = useState("");
   const [predictedTeam, setPredictedTeam] = useState({
@@ -201,6 +202,7 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
             isModalOpen={isModalOpen}
             predictedTeam={predictedTeam}
             handlePredictionSubmission={handlePredictionSubmission}
+            previouslyPredicted={previouslyPredicted}
           />
         )}
 
@@ -249,6 +251,8 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
                     fixture={fixture}
                     setIsModalOpen={setIsModalOpen}
                     isModalOpen={isModalOpen}
+                    previousPredictions={previousPredictions}
+                    setPreviouslyPredicted={setPreviouslyPredicted}
                   />
                 );
               })}

@@ -8,6 +8,8 @@ export default function Fixtures({
   setPredictedTeam,
   setIsModalOpen,
   isModalOpen,
+  previousPredictions,
+  setPreviouslyPredicted,
 }) {
   const handleBadgeClick = (team) => {
     setPredictedTeam({
@@ -15,6 +17,18 @@ export default function Fixtures({
       name: team.name,
       abbr: team.abbr,
     });
+
+    const hasTeamBeenPicked = previousPredictions.some(
+      (prediction) => prediction.team_id === team.id
+    );
+
+    if (hasTeamBeenPicked) {
+      setPreviouslyPredicted(true);
+      console.log("previously predicted");
+    } else {
+      setPreviouslyPredicted(false);
+    }
+
     setIsModalOpen(true);
   };
 
