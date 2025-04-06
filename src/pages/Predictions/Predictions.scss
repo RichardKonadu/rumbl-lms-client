@@ -91,7 +91,7 @@
     background-color: $text-secondary;
     color: white;
     padding: 0.5rem;
-    width: 60%;
+    width: 100%;
     border-radius: 20px;
     font-size: 1.2rem;
   }
@@ -101,5 +101,7 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    width: 70%;
+    margin: auto;
   }
 }

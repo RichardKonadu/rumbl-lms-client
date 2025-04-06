@@ -11,7 +11,6 @@ export default function LeagueStandings() {
   const [selectedLeague, setSelectedLeague] = useState("");
   const [predictionResults, setPredictionResults] = useState(null);
   const [leagueUsers, setLeagueUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
   const authToken = localStorage.getItem("authToken");
 
   const fetchLeagues = async () => {
@@ -101,6 +100,20 @@ export default function LeagueStandings() {
     return <BounceLoader />;
   }
 
+  if (leagues.length === 1 && leagues[0].league_id === 6) {
+    return (
+      <div className="error__wrapper">
+        <p className="error">
+          You are not currently in any active leagues. please join a league to
+          start making predictions.
+        </p>
+        <Link className="error__cta" to="/leagues">
+          Join a League
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="league__standings">
       <h1 className="gameweek__title">League Standings</h1>
@@ -119,7 +132,6 @@ export default function LeagueStandings() {
           <section className="gameweek__scroll-wrapper">
             <>
               <div className="key">
-                {/* <p className="gameweek__title">Gameweek</p> */}
                 <div className="key__wrapper">
                   <div className="key__item">
                     <img

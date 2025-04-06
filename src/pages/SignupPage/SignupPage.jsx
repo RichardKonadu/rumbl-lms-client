@@ -45,7 +45,6 @@ export default function SignupPage() {
         navigate("/login");
       }, 2000);
     } catch (error) {
-      // console.log(error.response.data);
       setErrorMessage(error.response.data);
     }
   };

@@ -184,85 +184,91 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
   return (
     <div className="predictions__wrapper">
       <div className="fixtures__wrapper">
-        <select
-          className="dropdown"
-          onChange={(e) => handleSelectedLeague(e)}
-          name=""
-          id={leagues.id}
-        >
-          <option value="">Select League</option>
-          {leagues.map((league, index) => {
-            return (
-              <option key={index} value={league.league_id}>
-                {league.name}
-              </option>
-            );
-          })}
-        </select>
-        {isModalOpen && (
-          <Modal
-            setIsModalOpen={setIsModalOpen}
-            isModalOpen={isModalOpen}
-            predictedTeam={predictedTeam}
-            handlePredictionSubmission={handlePredictionSubmission}
-            previouslyPredicted={previouslyPredicted}
-          />
-        )}
-
-        {selectedLeague && (
+        {leagues[0].league_id === 6 ? (
+          <div className="error__wrapper">
+            <p>
+              You are not currently in any active leagues. please join a league
+              to start making predictions.
+            </p>
+            <Link className="error__cta" to="/leagues">
+              Join a League
+            </Link>
+          </div>
+        ) : (
           <>
-            <p className="previous__title">Previously picked teams</p>
-            <ul className="predictions">
-              {previousPredictions.map((prediction, index) => {
-                return (
-                  <TeamButton
-                    key={index}
-                    prediction={prediction}
-                    teamsData={teamsData}
-                  />
-                );
-              })}
-            </ul>
-          </>
-        )}
-        {selectedLeague && (
-          <>
-            <h2 className="fixtures__title">Fixtures</h2>
-            <div className="gameweek">
-              <img
-                onClick={() => handleGameweek("back")}
-                className="gameweek__icons"
-                src={backSVG}
-                alt="previous gameweek"
-              />
-              <h3 className="gameweek__title">GW {gameweek} </h3>
-              <img
-                onClick={() => handleGameweek("forward")}
-                className="gameweek__icons"
-                src={nextSVG}
-                alt="next gameweek"
-              />
-            </div>
-            <ul
-              className={`fixture__list ${
-                isModalOpen ? "fixture__list--inactive" : ""
-              }`}
+            <select
+              className="dropdown"
+              onChange={(e) => handleSelectedLeague(e)}
+              name=""
             >
-              {fixtures.map((fixture, index) => {
-                return (
-                  <Fixtures
-                    setPredictedTeam={setPredictedTeam}
-                    predictedTeam={predictedTeam}
-                    key={index}
-                    fixture={fixture}
-                    setIsModalOpen={setIsModalOpen}
-                    isModalOpen={isModalOpen}
-                    previousPredictions={previousPredictions}
-                    setPreviouslyPredicted={setPreviouslyPredicted}
+              <option value="">Select League</option>
+              {leagues.map((league, index) => (
+                <option key={index} value={league.league_id}>
+                  {league.name}
+                </option>
+              ))}
+            </select>
+            {isModalOpen && (
+              <Modal
+                setIsModalOpen={setIsModalOpen}
+                isModalOpen={isModalOpen}
+                predictedTeam={predictedTeam}
+                handlePredictionSubmission={handlePredictionSubmission}
+                previouslyPredicted={previouslyPredicted}
+              />
+            )}
+            {selectedLeague && (
+              <>
+                <p className="previous__title">Previously picked teams</p>
+                <ul className="predictions">
+                  {previousPredictions.map((prediction, index) => (
+                    <TeamButton
+                      key={index}
+                      prediction={prediction}
+                      teamsData={teamsData}
+                    />
+                  ))}
+                </ul>
+              </>
+            )}
+            {selectedLeague && (
+              <>
+                <h2 className="fixtures__title">Fixtures</h2>
+                <div className="gameweek">
+                  <img
+                    onClick={() => handleGameweek("back")}
+                    className="gameweek__icons"
+                    src={backSVG}
+                    alt="previous gameweek"
                   />
-                );
-              })}
-            </ul>
+                  <h3 className="gameweek__title">GW {gameweek} </h3>
+                  <img
+                    onClick={() => handleGameweek("forward")}
+                    className="gameweek__icons"
+                    src={nextSVG}
+                    alt="next gameweek"
+                  />
+                </div>
+                <ul
+                  className={`fixture__list ${
+                    isModalOpen ? "fixture__list--inactive" : ""
+                  }`}
+                >
+                  {fixtures.map((fixture, index) => (
+                    <Fixtures
+                      setPredictedTeam={setPredictedTeam}
+                      predictedTeam={predictedTeam}
+                      key={index}
+                      fixture={fixture}
+                      setIsModalOpen={setIsModalOpen}
+                      isModalOpen={isModalOpen}
+                      previousPredictions={previousPredictions}
+                      setPreviouslyPredicted={setPreviouslyPredicted}
+                    />
+                  ))}
+                </ul>
+              </>
+            )}
           </>
         )}
       </div>

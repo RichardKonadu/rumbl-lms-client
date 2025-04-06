@@ -3,11 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { BounceLoader } from "react-spinners";
 
-export default function UserResults({
-  selectedLeague,
-  user,
-  predictionResults,
-}) {
+export default function UserResults({ user, predictionResults }) {
   const [teamsData, setTeamsData] = useState(null);
   const [error, setError] = useState("");
 

@@ -1,13 +1,9 @@
-import { useState } from "react";
 import "../Fixtures/Fixtures.scss";
-import Modal from "../Modal/Modal";
 
 export default function Fixtures({
   fixture,
-  predictedTeam,
   setPredictedTeam,
   setIsModalOpen,
-  isModalOpen,
   previousPredictions,
   setPreviouslyPredicted,
 }) {

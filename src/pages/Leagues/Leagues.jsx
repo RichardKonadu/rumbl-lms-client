@@ -2,17 +2,18 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./Leagues.scss";
 import CancelButton from "../../components/CancelButton/CancelButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Leagues() {
   const authToken = localStorage.getItem("authToken");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
   const [selectedLeague, setSelectedLeague] = useState("");
   const [leagues, setLeagues] = useState(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [createLeagueFormVisibility, setCreateLeagueFormVisibility] =
     useState(false);
-  const [formData, setFormData] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const fetchLeagues = async () => {
     const authToken = localStorage.getItem("authToken");
@@ -56,6 +57,10 @@ export default function Leagues() {
           },
         }
       );
+      setSuccess("Sucessfully joined league, redirecting to predictions");
+      setTimeout(() => {
+        navigate("/predictions");
+      }, 2000);
     } catch (error) {
       setError("Failed to join league");
     }
@@ -70,14 +75,6 @@ export default function Leagues() {
 
   const handleFormData = async (e) => {
     const authToken = localStorage.getItem("authToken");
-    console.log(e);
-    console.log(e.target);
-
-    console.log(e.target.sport);
-    console.log(e.target.sport.value);
-
-    console.log(e.target.league_name.value);
-
     e.preventDefault();
 
     try {
@@ -124,7 +121,7 @@ export default function Leagues() {
     <div className="leagues">
       <h1 className="leagues__title">Leagues</h1>
       <div className="button__wrapper">
-        {!createLeagueFormVisibility && (
+        {!createLeagueFormVisibility && !dropdownVisible && (
           <button
             onClick={() => handleDropdownVisibility("open")}
             className="button"
@@ -133,7 +130,7 @@ export default function Leagues() {
           </button>
         )}
 
-        {dropdownVisible && (
+        {dropdownVisible && !selectedLeague && (
           <>
             <select
               className="dropdown"
@@ -166,12 +163,15 @@ export default function Leagues() {
           <>
             <p>Confirm joining league</p>{" "}
             <button onClick={handleJoinLeague} className="button">
-              Confirm league registration
+              Confirm
             </button>
+            <CancelButton
+              handleCreateLeagueVisbility={() => setSelectedLeague("")}
+            />
           </>
         )}
       </div>
-      {createLeagueFormVisibility && !selectedLeague && (
+      {createLeagueFormVisibility && (
         <form className="create-league" onSubmit={handleFormData}>
           <label htmlFor="">League name</label>
           <input
@@ -193,6 +193,7 @@ export default function Leagues() {
           />
         </form>
       )}
+      {success && <p>{success}</p>}
     </div>
   );
 }
