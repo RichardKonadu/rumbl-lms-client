@@ -119,26 +119,39 @@ export default function LeagueStandings() {
           <section className="gameweek__scroll-wrapper">
             <>
               <div className="key">
-                <p className="gameweek__title">Gameweek</p>
+                {/* <p className="gameweek__title">Gameweek</p> */}
                 <div className="key__wrapper">
-                  <img
-                    className="key__icon"
-                    src={"/src/assets/icons/green-circle.svg"}
-                    alt=""
-                  />
+                  <div className="key__item">
+                    <img
+                      className="key__icon"
+                      src={"/src/assets/icons/green-circle.svg"}
+                      alt=""
+                    />
 
-                  <p> = Won</p>
-                  <img
-                    className="key__icon"
-                    src={"/src/assets/icons/red-circle.svg"}
-                    alt=""
-                  />
+                    <p> = Won</p>
+                  </div>
+                  <div className="key__item">
+                    <img
+                      className="key__icon"
+                      src={"/src/assets/icons/red-circle.svg"}
+                      alt=""
+                    />
 
-                  <p>= Lost</p>
+                    <p>= Lost</p>
+                  </div>
+                  <div className="key__item">
+                    <img
+                      className="key__icon"
+                      src={"/src/assets/icons/eliminated.svg"}
+                      alt=""
+                    />
+
+                    <p>= eliminated</p>
+                  </div>
                 </div>
               </div>
               <ul className="gameweek__ul">
-                <li className="gameweek__user"></li>
+                <li className="gameweek__user">GW</li>
                 {predictionResults
                   .filter(
                     (prediction, index, self) =>

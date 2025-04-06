@@ -162,22 +162,16 @@ export default function Leagues() {
             Create a league
           </button>
         )}
-        {selectedLeague && (
+        {selectedLeague && dropdownVisible && (
           <>
             <p>Confirm joining league</p>{" "}
             <button onClick={handleJoinLeague} className="button">
               Confirm league registration
             </button>
-            <button
-              onClick={() => handleDropdownVisibility("closed")}
-              className="button button--cancel"
-            >
-              Cancel
-            </button>
           </>
         )}
       </div>
-      {createLeagueFormVisibility && (
+      {createLeagueFormVisibility && !selectedLeague && (
         <form className="create-league" onSubmit={handleFormData}>
           <label htmlFor="">League name</label>
           <input

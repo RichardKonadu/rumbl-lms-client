@@ -6,7 +6,7 @@ body {
 }
 .modal {
   width: 90vw;
-  height: 35%;
+  height: 25%;
   color: white;
   top: 30%;
   position: absolute;
@@ -19,6 +19,7 @@ body {
     animation: shake 0.5s;
     animation-iteration-count: 0.5;
     background-color: red;
+    height: 20%;
 
     @keyframes shake {
       0% {

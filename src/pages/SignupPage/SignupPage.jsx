@@ -45,7 +45,8 @@ export default function SignupPage() {
         navigate("/login");
       }, 2000);
     } catch (error) {
-      setErrorMessage(error.message);
+      // console.log(error.response.data);
+      setErrorMessage(error.response.data);
     }
   };
   return (
@@ -77,7 +78,7 @@ export default function SignupPage() {
               onChange={(e) => handleChange(e)}
             />
           </div>
-          {errorMessage && <p>{errorMessage}</p>}
+
           <div className="form__group">
             <label className="form__label" htmlFor="passwordRegister">
               Password
@@ -98,6 +99,7 @@ export default function SignupPage() {
             </Link>
           </p>
           {success && <p>You're signed up! Redirecting to login page...</p>}
+          {errorMessage && <p className="signup__error">{errorMessage}</p>}
         </form>
       </div>
     </main>
