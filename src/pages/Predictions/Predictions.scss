@@ -1,4 +1,5 @@
 @use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
 
 .gameweek {
   display: flex;
@@ -30,8 +31,12 @@
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  width: 100%;
+  width: 100vw;
   padding: 1rem 1rem;
+
+  @include tablet {
+    width: 70vw;
+  }
 
   &--inactive {
     filter: blur(5px);

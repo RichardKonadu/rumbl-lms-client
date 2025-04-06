@@ -88,6 +88,7 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
 
   const handlePredictionSubmission = () => {
     sendPrediction();
+    setIsModalOpen(false);
   };
 
   const sendPrediction = async () => {
@@ -116,6 +117,7 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
 
   const getPredictions = async () => {
     const authToken = localStorage.getItem("authToken");
+
     try {
       const { data } = await axios.get(
         `${import.meta.env.VITE_API_BASE_URL}/predictions/${selectedLeague}`,
@@ -127,10 +129,16 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
       );
       setPreviousPredictions(data);
     } catch (error) {
-      if (error.status === 401) {
-        setError("You must be logged in to view previous predictions");
-        setIsLoading(false);
+      if (error.response) {
+        if (error.response.status === 404) {
+          setPreviousPredictions([]);
+        } else if (error.response.status === 401) {
+          setError("You must be logged in to view previous predictions");
+        }
+      } else {
+        console.error("An unexpected error occurred:", error);
       }
+      setIsLoading(false);
     }
   };
 
@@ -184,7 +192,7 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
   return (
     <div className="predictions__wrapper">
       <div className="fixtures__wrapper">
-        {leagues[0].league_id === 6 ? (
+        {leagues.length === 1 && leagues[0].league_id === 6 ? (
           <div className="error__wrapper">
             <p>
               You are not currently in any active leagues. please join a league
@@ -219,16 +227,22 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
             )}
             {selectedLeague && (
               <>
-                <p className="previous__title">Previously picked teams</p>
-                <ul className="predictions">
-                  {previousPredictions.map((prediction, index) => (
-                    <TeamButton
-                      key={index}
-                      prediction={prediction}
-                      teamsData={teamsData}
-                    />
-                  ))}
-                </ul>
+                {previousPredictions && previousPredictions.length > 0 ? (
+                  <>
+                    <p className="previous__title">Previously picked teams</p>
+                    <ul className="predictions">
+                      {previousPredictions.map((prediction, index) => (
+                        <TeamButton
+                          key={index}
+                          prediction={prediction}
+                          teamsData={teamsData}
+                        />
+                      ))}
+                    </ul>
+                  </>
+                ) : (
+                  <p>No previous predictions</p>
+                )}
               </>
             )}
             {selectedLeague && (
