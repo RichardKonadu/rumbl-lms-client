@@ -10,6 +10,7 @@ import { BounceLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 
 export default function Predictions({ setIsModalOpen, isModalOpen }) {
+  const authToken = localStorage.getItem("authToken");
   const [isLoading, setIsLoading] = useState(true);
   const [teamsData, setTeamsData] = useState([]);
   const [error, setError] = useState("");
@@ -37,7 +38,7 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
   };
 
   const fetchLeagues = async () => {
-    const authToken = localStorage.getItem("authToken");
+    // const authToken = localStorage.getItem("authToken");
 
     try {
       const { data } = await axios.get(
@@ -56,6 +57,8 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
       if (error.response) {
         if (error.response.status === 401) {
           setError("You must be logged in to make predictions");
+        } else if (error.response.status === 404) {
+          setError(error);
         } else {
           setError("An error occurred while fetching predictions");
         }
@@ -92,7 +95,7 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
   };
 
   const sendPrediction = async () => {
-    const authToken = localStorage.getItem("authToken");
+    // const authToken = localStorage.getItem("authToken");
     try {
       await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/predictions`,
@@ -116,7 +119,7 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
   };
 
   const getPredictions = async () => {
-    const authToken = localStorage.getItem("authToken");
+    // const authToken = localStorage.getItem("authToken");
 
     try {
       const { data } = await axios.get(
@@ -149,7 +152,7 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
     fetchLeagues();
   }, [gameweek, selectedLeague]);
 
-  if (error) {
+  if (!authToken) {
     return (
       <div className="error__wrapper">
         <p className="error">{error}</p>
@@ -158,6 +161,19 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
         </Link>
         <Link className="error__cta" to="/login">
           Login
+        </Link>
+      </div>
+    );
+  }
+
+  if (error.status === 404) {
+    return (
+      <div className="error__wrapper">
+        <p className="error">
+          You are not part of any leagues to start making predictions.
+        </p>
+        <Link className="error__cta" to="/leagues">
+          Join Leagues
         </Link>
       </div>
     );

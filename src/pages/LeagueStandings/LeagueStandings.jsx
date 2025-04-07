@@ -25,7 +25,13 @@ export default function LeagueStandings() {
       );
       setLeagues(data);
     } catch (error) {
-      setError("You must be logged in to view league standings");
+      if (error.response) {
+        if (error.response.status === 401) {
+          setError("You must be logged in to view league standings");
+        } else if (error.response.status === 404) {
+          setError(error);
+        }
+      }
     }
   };
 
@@ -85,7 +91,7 @@ export default function LeagueStandings() {
   if (!authToken) {
     return (
       <div className="error__wrapper">
-        <p className="error">{error}</p>
+        <p className="error">You must be logged in to view league standings.</p>
         <Link className="error__cta" to="/signup">
           Signup
         </Link>
@@ -96,23 +102,36 @@ export default function LeagueStandings() {
     );
   }
 
-  if (!leagues) {
-    return <BounceLoader />;
-  }
-
-  if (leagues.length === 1 && leagues[0].league_id === 6) {
+  if (error.status === 404) {
     return (
       <div className="error__wrapper">
         <p className="error">
-          You are not currently in any active leagues. please join a league to
-          start making predictions.
+          You are not part of any leagues to view league standings.
         </p>
         <Link className="error__cta" to="/leagues">
-          Join a League
+          Join Leagues
         </Link>
       </div>
     );
   }
+
+  if (!leagues) {
+    return <BounceLoader />;
+  }
+
+  // if (!leagues.length) {
+  //   return (
+  //     <div className="error__wrapper">
+  //       <p className="error">
+  //         You are not currently in any active leagues. please join a league to
+  //         start making predictions.
+  //       </p>
+  //       <Link className="error__cta" to="/leagues">
+  //         Join a League
+  //       </Link>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="league__standings">
