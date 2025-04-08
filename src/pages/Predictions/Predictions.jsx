@@ -15,7 +15,7 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
   const [teamsData, setTeamsData] = useState([]);
   const [error, setError] = useState("");
   const [fixtures, setFixtures] = useState("");
-  const [gameweek, setGameweek] = useState(30);
+  const [gameweek, setGameweek] = useState(32);
   const [previousPredictions, setPreviousPredictions] = useState(null);
   const [previouslyPredicted, setPreviouslyPredicted] = useState(false);
   const [leagues, setLeagues] = useState(null);

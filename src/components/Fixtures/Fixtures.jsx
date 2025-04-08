@@ -1,3 +1,4 @@
+import { isFuture, isPast } from "date-fns";
 import "../Fixtures/Fixtures.scss";
 
 export default function Fixtures({
@@ -39,6 +40,8 @@ export default function Fixtures({
     abbr: fixture.away_team_abbr,
   };
 
+  // console.log(isPast(fixture.kickoff));
+
   return (
     <>
       <li className="fixture">
@@ -51,7 +54,23 @@ export default function Fixtures({
           alt={`${fixture.home_team_name} badge`}
           onClick={() => handleBadgeClick(homeTeam)}
         />{" "}
-        {fixture.home_team_abbr} vs {fixture.away_team_abbr}{" "}
+        {isPast(fixture.kickoff) && (
+          <>
+            <div>
+              <p>{fixture.home_team_abbr}</p>
+              <p>{fixture.home_score ? fixture.home_score : "0"}</p>
+            </div>
+            <div>
+              <p>{fixture.away_team_abbr}</p>
+              <p>{fixture.away_score ? fixture.away_score : "0"}</p>
+            </div>
+          </>
+        )}
+        {isFuture(fixture.kickoff) && (
+          <p>
+            {fixture.home_team_abbr} vs {fixture.away_team_abbr}
+          </p>
+        )}
         <img
           className="badge"
           src={`/src/assets/images/${fixture.away_team_name.replace(

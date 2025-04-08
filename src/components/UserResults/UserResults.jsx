@@ -39,6 +39,16 @@ export default function UserResults({ user, predictionResults }) {
     ...new Set(predictionResults.map((prediction) => prediction.game_week)),
   ];
 
+  const generateBadgeClass = (team) => {
+    if (team.did_win === 0) {
+      return "gameweek__badge gameweek__badge--eliminated";
+    } else if (team.did_win === 1) {
+      return "gameweek__badge gameweek__badge--won";
+    } else {
+      return "gameweek__badge";
+    }
+  };
+
   return (
     <ul className="gameweek__ul">
       <li className="gameweek__user">{user.name}</li>
@@ -51,9 +61,7 @@ export default function UserResults({ user, predictionResults }) {
           <div className="gameweek__badge-wrapper" key={week}>
             {team && team.team ? (
               <img
-                className={`gameweek__badge ${
-                  team.did_win === 0 ? "gameweek__badge--eliminated" : ""
-                }`}
+                className={generateBadgeClass(team)}
                 src={`/src/assets/images/${team.team.name.replace(
                   /\s+/g,
                   "-"
