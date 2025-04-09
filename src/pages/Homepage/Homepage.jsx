@@ -1,5 +1,5 @@
 import "../Homepage/Homepage.scss";
-import homepageimage from "../../assets/images/Calafiori.jpg";
+import homepageimage from "../../../public/images/Calafiori.jpg";
 import { Link } from "react-router-dom";
 
 export default function Homepage() {

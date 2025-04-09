@@ -42,15 +42,19 @@ export default function Fixtures({
 
   // console.log(isPast(fixture.kickoff));
 
+  function getImageUrl(name) {
+    // note that this does not include files in subdirectories
+    return new URL(`../../assets/images/${name}.svg`, import.meta.url).href;
+  }
+  console.log(import.meta.url);
   return (
     <>
       <li className="fixture">
         <img
           className="badge"
-          src={`/src/assets/images/${fixture.home_team_name.replace(
-            /\s+/g,
-            "-"
-          )}.svg`}
+          src={`/images/${fixture.home_team_name
+            .replace(/\s+/g, "-")
+            .toLowerCase()}.svg`}
           alt={`${fixture.home_team_name} badge`}
           onClick={() => handleBadgeClick(homeTeam)}
         />{" "}
@@ -73,12 +77,11 @@ export default function Fixtures({
         )}
         <img
           className="badge"
-          src={`/src/assets/images/${fixture.away_team_name.replace(
-            /\s+/g,
-            "-"
-          )}.svg`}
+          src={`/images/${fixture.away_team_name
+            .replace(/\s+/g, "-")
+            .toLowerCase()}.svg`}
           alt={`${fixture.away_team_name} badge`}
-          onClick={() => handleBadgeClick(awayTeam)}
+          onClick={() => handleBadgeClick(homeTeam)}
         />
       </li>
     </>

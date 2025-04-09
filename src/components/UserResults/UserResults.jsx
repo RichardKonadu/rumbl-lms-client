@@ -49,6 +49,13 @@ export default function UserResults({ user, predictionResults }) {
     }
   };
 
+  // //  <img
+  // // className="badge"
+  // src={`/images/${fixture.home_team_name
+  //   .replace(/\s+/g, "-")
+  //   .toLowerCase()}.svg`}
+  // alt={`${fixture.home_team_name} badge`}
+
   return (
     <ul className="gameweek__ul">
       <li className="gameweek__user">{user.name}</li>
@@ -62,10 +69,9 @@ export default function UserResults({ user, predictionResults }) {
             {team && team.team ? (
               <img
                 className={generateBadgeClass(team)}
-                src={`/src/assets/images/${team.team.name.replace(
-                  /\s+/g,
-                  "-"
-                )}.svg`}
+                src={`/images/${team.team.name
+                  .replace(/\s+/g, "-")
+                  .toLowerCase()}.svg`}
                 alt={`${team.team.name} badge`}
               />
             ) : team && team.did_win === 0 ? (
