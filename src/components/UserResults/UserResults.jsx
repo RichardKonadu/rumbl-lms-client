@@ -49,13 +49,6 @@ export default function UserResults({ user, predictionResults }) {
     }
   };
 
-  // //  <img
-  // // className="badge"
-  // src={`/images/${fixture.home_team_name
-  //   .replace(/\s+/g, "-")
-  //   .toLowerCase()}.svg`}
-  // alt={`${fixture.home_team_name} badge`}
-
   return (
     <ul className="gameweek__ul">
       <li className="gameweek__user">{user.name}</li>
