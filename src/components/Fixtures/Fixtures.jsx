@@ -53,13 +53,13 @@ export default function Fixtures({
         />{" "}
         {isPast(fixture.kickoff) && (
           <>
-            <div>
+            <div className="score__wrapper">
               <p>{fixture.home_team_abbr}</p>
               <p>{fixture.home_score ? fixture.home_score : "0"}</p>
             </div>
-            <div>
-              <p>{fixture.away_team_abbr}</p>
+            <div className="score__wrapper">
               <p>{fixture.away_score ? fixture.away_score : "0"}</p>
+              <p>{fixture.away_team_abbr}</p>
             </div>
           </>
         )}

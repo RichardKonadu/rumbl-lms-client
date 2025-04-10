@@ -21,3 +21,9 @@
     border: solid 2px $text-secondary;
   }
 }
+
+.score__wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}

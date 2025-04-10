@@ -19,7 +19,9 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
   const [previousPredictions, setPreviousPredictions] = useState(null);
   const [previouslyPredicted, setPreviouslyPredicted] = useState(false);
   const [leagues, setLeagues] = useState(null);
+  const [invalidGameweek, setInvalidGameweek] = useState(false);
   const [selectedLeague, setSelectedLeague] = useState("");
+  const [successfulPrediction, setSuccessfulPrediction] = useState(false);
   const [predictedTeam, setPredictedTeam] = useState({
     name: "",
     id: "",
@@ -38,8 +40,6 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
   };
 
   const fetchLeagues = async () => {
-    // const authToken = localStorage.getItem("authToken");
-
     try {
       const { data } = await axios.get(
         `${import.meta.env.VITE_API_BASE_URL}/leagueuser`,
@@ -91,11 +91,9 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
 
   const handlePredictionSubmission = () => {
     sendPrediction();
-    setIsModalOpen(false);
   };
 
   const sendPrediction = async () => {
-    // const authToken = localStorage.getItem("authToken");
     try {
       await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/predictions`,
@@ -110,17 +108,19 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
           },
         }
       );
+      setSuccessfulPrediction(true);
     } catch (error) {
-      if (error.status === 401) {
+      if (error.response.status === 401) {
         setError("You must be logged in to make a prediction");
         setIsLoading(false);
+      } else if (error.response.status === 400) {
+        setInvalidGameweek(true);
+        setError("Invalid Gameweek");
       }
     }
   };
 
   const getPredictions = async () => {
-    // const authToken = localStorage.getItem("authToken");
-
     try {
       const { data } = await axios.get(
         `${import.meta.env.VITE_API_BASE_URL}/predictions/${selectedLeague}`,
@@ -239,6 +239,10 @@ export default function Predictions({ setIsModalOpen, isModalOpen }) {
                 predictedTeam={predictedTeam}
                 handlePredictionSubmission={handlePredictionSubmission}
                 previouslyPredicted={previouslyPredicted}
+                setInvalidGameweek={setInvalidGameweek}
+                invalidGameweek={invalidGameweek}
+                successfulPrediction={successfulPrediction}
+                setSuccessfulPrediction={setSuccessfulPrediction}
               />
             )}
             {selectedLeague && (

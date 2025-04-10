@@ -33,11 +33,11 @@
 }
 
 .bm-burger-bars {
-  background: rgb(3, 29, 100);
+  background: $text-secondary;
 }
 
 .bm-burger-bars-hover {
-  background: rgb(0, 121, 255);
+  background: $text-primary;
 }
 
 .bm-cross-button {
@@ -55,7 +55,7 @@
 }
 
 .bm-menu {
-  background: rgb(3, 29, 100);
+  background: $text-secondary;
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
 }

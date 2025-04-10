@@ -119,20 +119,6 @@ export default function LeagueStandings() {
     return <BounceLoader />;
   }
 
-  // if (!leagues.length) {
-  //   return (
-  //     <div className="error__wrapper">
-  //       <p className="error">
-  //         You are not currently in any active leagues. please join a league to
-  //         start making predictions.
-  //       </p>
-  //       <Link className="error__cta" to="/leagues">
-  //         Join a League
-  //       </Link>
-  //     </div>
-  //   );
-  // }
-
   return (
     <div className="league__standings">
       <h1 className="gameweek__title">League Standings</h1>

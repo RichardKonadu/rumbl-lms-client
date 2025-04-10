@@ -5,9 +5,15 @@ export default function Modal({
   predictedTeam,
   handlePredictionSubmission,
   previouslyPredicted,
+  invalidGameweek,
+  setInvalidGameweek,
+  successfulPrediction,
+  setSuccessfulPrediction,
 }) {
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setInvalidGameweek(false);
+    setSuccessfulPrediction(false);
   };
 
   return (
@@ -27,7 +33,6 @@ export default function Modal({
               them again{" "}
             </p>
           )}
-
           <div className="modal__footer">
             <div className="modal__btn-container">
               <button
@@ -44,6 +49,27 @@ export default function Modal({
                   {" "}
                   Submit Prediction
                 </button>
+              )}
+              {invalidGameweek && (
+                <>
+                  <p>
+                    You can only submit predictions for the current gameweek
+                  </p>
+                  <button
+                    className="modal__btn modal__btn--cancel"
+                    onClick={handleCloseModal}
+                  >
+                    Cancel
+                  </button>
+                </>
+              )}
+              {successfulPrediction && (
+                <>
+                  <p>Prediction submitted, Good Luck!</p>
+                  <button className="modal__btn" onClick={handleCloseModal}>
+                    Exit
+                  </button>
+                </>
               )}
             </div>
           </div>

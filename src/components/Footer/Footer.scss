@@ -1,7 +1,7 @@
 @use "../../styles/partials/variables" as *;
 
 .footer {
-  background-color: rgb(3, 29, 100);
+  background-color: $text-secondary;
   width: 100%;
 
   &__content {
