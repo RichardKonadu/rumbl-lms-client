@@ -156,15 +156,15 @@ export default function LeagueStandings() {
 
                     <p>= Lost</p>
                   </div>
-                  <div className="key__item">
+                  {/* <div className="key__item">
                     <img
                       className="key__icon"
                       src={"/src/assets/icons/eliminated.svg"}
                       alt=""
                     />
 
-                    <p>= eliminated</p>
-                  </div>
+                    <p>= Eliminated</p>
+                  </div> */}
                 </div>
               </div>
               <ul className="gameweek__ul">

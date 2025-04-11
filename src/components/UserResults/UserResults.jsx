@@ -56,6 +56,7 @@ export default function UserResults({ user, predictionResults }) {
         const team = predictionTeams.find(
           (prediction) => prediction.game_week === week
         );
+        console.log(team);
 
         return (
           <div className="gameweek__badge-wrapper" key={week}>
