@@ -141,7 +141,7 @@ export default function LeagueStandings() {
                   <div className="key__item">
                     <img
                       className="key__icon"
-                      src={"/src/assets/icons/green-circle.svg"}
+                      src={"/icons/green-circle.svg"}
                       alt=""
                     />
 
@@ -150,7 +150,7 @@ export default function LeagueStandings() {
                   <div className="key__item">
                     <img
                       className="key__icon"
-                      src={"/src/assets/icons/red-circle.svg"}
+                      src={"/icons/red-circle.svg"}
                       alt=""
                     />
 
